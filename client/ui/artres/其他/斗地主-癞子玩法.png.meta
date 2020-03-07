@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "7f3c89af-927f-42b1-8924-3f148e76fbfd",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "斗地主-癞子玩法": {
+      "ver": "1.0.3",
+      "uuid": "277b7521-5617-4332-bbe7-711eae03fe67",
+      "rawTextureUuid": "7f3c89af-927f-42b1-8924-3f148e76fbfd",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 183,
+      "height": 56,
+      "rawWidth": 183,
+      "rawHeight": 56,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

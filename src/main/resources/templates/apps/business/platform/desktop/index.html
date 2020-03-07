@@ -1,0 +1,102 @@
+<div class="layui-layout layui-layout-content">
+	<div class="layui-side layui-beimi-left">
+		<div class="layui-side-scroll">
+		<#include "/apps/business/platform/include/left.html"/></div>
+	</div>
+	<div class="layui-body">
+		<div class="layui-side-scroll">
+			<div class="layui-side-scroll">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="site-h1">
+							在线客服业务概况
+						</h1>
+						<div class="row">
+							<div class="col-lg-3">
+								<div class="ukefu-measure">
+									<a href="/apps/onlineuser.html" class="ukefu-bt"> 
+										<i class="layui-icon ukewo-btn ukefu-measure-btn">&#xe612;</i>
+										<div class="ukefu-bt-text">
+											<div class="ukefu-bt-text-title" style="font-weight:400;font-size:19px;">0/0</div>
+											<div class="ukefu-bt-text-content" style="">访客：已邀请/已拒绝</div>
+										</div>
+									</a>
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="ukefu-measure">
+									<a href="/service/agent/index.html" class="ukefu-bt"> 
+										<i class="kfont icon-iconfontagent ukewo-btn ukefu-measure-btn ukefu-bg-color-yellow"></i>
+										<div class="ukefu-bt-text">
+											<div class="ukefu-bt-text-title" style="font-weight:400;font-size:19px;">1/2</div>
+											<div class="ukefu-bt-text-content" style="">坐席:在线/全部</div>
+										</div>
+									</a>
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="ukefu-measure">
+									<a href="/service/quene/index.html" class="ukefu-bt"> 
+										<i class="layui-icon ukewo-btn ukefu-measure-btn ukefu-bg-color-pink">&#xe63a;</i>
+										<div class="ukefu-bt-text">
+											<div class="ukefu-bt-text-title" style="font-weight:400;font-size:19px;">1/0</div>
+											<div class="ukefu-bt-text-content" style="">会话：服务/排队</div>
+										</div>
+									</a>
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="ukefu-measure">
+									<a href="/apps/onlineuser.html" class="ukefu-bt"> 
+										<i class="layui-icon ukewo-btn ukefu-measure-btn ukefu-bg-color-green">&#xe62c;</i>
+										<div class="ukefu-bt-text">
+											<div class="ukefu-bt-text-title" style="font-weight:400;font-size:19px;">142/244</div>
+											<div class="ukefu-bt-text-content" style="">统计:IP/PV</div>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="site-h1" style="border-top:1px solid #e6e6e6;margin-top:15px;">
+							当前在线用户列表（0）
+						</h1>
+						<table class="layui-table" lay-skin="line">
+							<thead>
+								<tr class="design-sortable-tr">
+									<th>用户名</th>
+									<th>终端</th>
+									<th>操作系统</th>
+									<th>浏览器</th>
+									<th>访问时间</th>
+									<th>停留时间</th>
+									<th>地域</th>
+									<th>邀请</th>
+									<th>拒绝</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+									<tr>
+										<td colspan="20" style="height:400px;">
+											<div class="ukefu-empty">
+												<i class="layui-icon">&#xe63a;</i>
+												<div style="">还没有在线访客记录</div>
+											</div>
+										</td>
+									</tr>
+							</tbody>
+						</table>
+		
+					</div>
+				</div>
+				<div class="row" style="padding:5px;">
+					<div class="col-lg-12" id="page" style="text-align:center;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

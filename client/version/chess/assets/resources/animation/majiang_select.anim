@@ -1,0 +1,43 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "majiang_select",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 1.5,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "0de36dff-7bcc-4d95-8ce4-54cc85612129"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "59e51360-8bbd-4475-9551-c3b751091a31"
+            }
+          },
+          {
+            "frame": 1,
+            "value": {
+              "__uuid__": "87c0afb0-4b11-4f0f-8b7d-a7f6046578bf"
+            }
+          },
+          {
+            "frame": 1.4833333333333334,
+            "value": {
+              "__uuid__": "d350fe2b-a94a-4885-b4e5-37b22325a09d"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

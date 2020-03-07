@@ -1,0 +1,58 @@
+<div class="uk-layui-form">
+	<form class="layui-form uk-form"
+		action="/apps/platform/online/gameusers/update.html">
+		<input type="hidden" name="id" value="${playUser.id!''}">
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">用户名：</label>
+			<div class="layui-input-inline">
+				${playUser.username!''}
+			</div>
+		</div>
+		
+			
+		<div class="layui-form-item">
+			<label class="layui-form-label">账号：</label>
+			<div class="layui-input-inline">
+				<input type="checkbox" name="disabled" title="禁用" value="1" >
+			</div>
+		</div>
+		
+		<div class="layui-form-item">
+			<label class="layui-form-label">金币：</label>
+			<div class="layui-input-inline">
+				<input type="text" name="goldcoins" value="${playUser.goldcoins!''}" required lay-verify="required|number"
+					placeholder="金币数量" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">房卡：</label>
+			<div class="layui-input-inline">
+				<input type="text" name="cards" value="${playUser.cards!''}" required lay-verify="required|number"
+					placeholder="房卡数量" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">钻石：</label>
+			<div class="layui-input-inline">
+				<input type="text" name="diamonds" value="${playUser.diamonds!''}" required lay-verify="required|number"
+					placeholder="钻石数量" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+
+		<div class="layui-form-button">
+			<div class="layui-button-block">
+				<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+  form.render(); //更新全部
+});
+</script>

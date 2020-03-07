@@ -1,0 +1,216 @@
+<div class="layui-layout layui-layout-content">
+	<div class="layui-side layui-beimi-left">
+		<div class="layui-side-scroll">
+		<#include "/apps/business/platform/include/left.html"/></div>
+	</div>
+	<div class="layui-body">
+		<div class="layui-side-scroll">
+			<form method="post" key="set-mine" enctype="multipart/form-data" action="/apps/platform/config/ai/save.html" class="layui-form">
+				<#if aiConfig??><input type="hidden" name="id" value="${aiConfig.id!''}"></#if>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="ukefu-customer-div setting-wrapper">
+							<div class="box default-box">
+								<div class="box-header">
+									<h3 class="box-title">机器人设置</h3>
+								</div>
+								<div class="box-body ukefu-im-theme">
+									<div class="layui-fluid">
+										<div class="layui-col-md8">
+									    </div>
+									</div>   
+									<div class="row">
+										<div class="col-lg-8">
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">1、启用机器人</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>启用此功能后，房间玩家等待撮合超时后，系统指派机器人参与游戏</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">开启功能后，需要设定机器人初始化数值</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="checkbox" name="enableai" lay-filter="enableai" title="启用" <#if aiConfig?? && aiConfig.enableai == true>checked="checked"</#if>>
+														</div>
+													</div>
+												</div>
+												<div class="box-item" id="enableai" style="<#if aiConfig?? && aiConfig.enableai == true><#else>display:none;</#if>">
+													<div class="row" style="margin-top:20px;">
+														<div class="col-lg-8">
+															<p>
+																a、玩家等待超时时长（秒）
+															</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">
+																达到超时时长（秒）后，AI进入，默认是5秒
+															</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<div class="layui-box">
+																<input type="text" lay-verify="number" name="waittime" maxlength="8" value="<#if aiConfig && aiConfig.waittime?? && aiConfig.waittime gt 0>${aiConfig.waittime}<#else>5</#if>" autocomplete="off" class="layui-input" style="width:80px;display:inline;">
+															</div>
+														</div>
+													</div>
+													<div class="row" style="margin-top:20px;">
+														<div class="col-lg-8">
+															<p>
+																b、AI初始金币数量
+															</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">
+																AI参与游戏是，初始化金币数量
+															</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<div class="layui-box">
+																<input type="text" lay-verify="number" name="initcoins" maxlength="8" value="<#if aiConfig && aiConfig.initcoins??>${aiConfig.initcoins}<#else>5000</#if>" autocomplete="off" class="layui-input" style="width:80px;display:inline;">
+															</div>
+														</div>
+													</div>
+													<div class="row" id="initaccount" style="margin-top:20px;">
+														<div class="col-lg-8">
+															<p>
+																c、初始房卡数量
+															</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">
+																AI参与游戏时，初始化金币数量
+															</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<div class="layui-box">
+																<input type="text" name="initcards" lay-verify="number" maxlength="3" value="<#if aiConfig && aiConfig.initcards??>${aiConfig.initcards}<#else>10</#if>" autocomplete="off" class="layui-input" style="width:80px;display:inline;">
+															</div>
+														</div>
+													</div>
+													<div class="row" id="initaccount" style="margin-top:20px;">
+														<div class="col-lg-8">
+															<p>
+																d、初始钻石数量
+															</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">
+																AI参与游戏时，初始化钻石数量
+															</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<div class="layui-box">
+																<input type="text" name="initdiamonds" lay-verify="number" maxlength="3" value="<#if aiConfig && aiConfig.initdiamonds??>${aiConfig.initdiamonds}<#else>10</#if>" autocomplete="off" class="layui-input" style="width:80px;display:inline;">
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">2、AI账号退出策略</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>AI退出游戏的策略</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">设置AI退出方式，系统默认退出方式为AI金币用完即退出</p>
+														</div>
+													</div>
+												</div>
+												<div class="box-item" id="re_timeout_tip">	
+													<div class="row">
+														<div class="col-lg-12">
+															<div class="layui-form-item">
+															    <div class="layui-input-block" style="margin-left:0px;">
+															      <input type="radio" name="exitcon" value="bank" title="金币用完" checked>
+															      <input type="radio" name="exitcon" value="sign" title="任一玩家退出" >
+															      <input type="radio" name="exitcon" value="allsign" title="全部玩家退出" >
+															    </div>
+															</div>	
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">3、最大AI数量</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>每局游戏加入的AI数量限制</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">达到玩家等待超时时间后，加入的AI数量，如果AI加入后满足房间玩法的最大玩家数量后，立即开始游戏</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<div class="layui-box" style="width:80px;display: inline-block;">
+																<select name="keywordnum">
+																		<option value="1" <#if aiConfig?? && aiConfig.maxai?? && aiConfig.maxai == 1>selected="selected"</#if>>1</option>
+																		<option value="2" <#if !aiConfig?? || aiConfig.maxai == 2>selected="selected"</#if>>2</option>
+																		<option value="3" <#if aiConfig?? && aiConfig.maxai?? && aiConfig.maxai == 3>selected="selected"</#if>>3</option>
+																		<option value="4" <#if aiConfig?? && aiConfig.maxai?? && aiConfig.maxai == 4>selected="selected"</#if>>4</option>
+																	  	<option value="5" <#if aiConfig?? && aiConfig.maxai?? && aiConfig.maxai == 5>selected="selected"</#if>>5</option>
+																	  	<option value="6" <#if aiConfig?? && aiConfig.maxai?? && aiConfig.maxai == 6>selected="selected"</#if>>6</option>
+																	  	<option value="7" <#if aiConfig?? && aiConfig.maxai?? && aiConfig.maxai == 7>selected="selected"</#if>>7</option>
+																	  	<option value="8" <#if aiConfig?? && aiConfig.maxai?? && aiConfig.maxai == 8>selected="selected"</#if>>8</option>
+																	</select>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">4、从字典随机获取AI昵称、性别、头像和签名</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>启用此功能后，其他玩家将无法通过基本信息区分是否AI参与游戏</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">默认的AI基本信息是通过时间戳自动生成的，通过AI基本信息即可判断</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="checkbox" id="dicinfo" name="dicinfo" title="启用" <#if aiConfig?? && aiConfig.dicinfo == true>checked="checked"</#if>>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">5、启用AI聊天功能</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>启用此功能后，AI能够和其他玩家对话，并根据游戏场景自动发布消息</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">降低玩家的AI焦虑</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="checkbox" id="aichat" name="aichat" title="启用" <#if aiConfig?? && aiConfig.aichat == true>checked="checked"</#if>>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3"></div>
+					<div class="col-lg-9">
+						<div class="layui-form-item">
+						  <div class="layui-input-block">
+							<button class="layui-btn" lay-submit="" lay-filter="formDemo">保存</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						  </div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script language="javascript"> 		
+	layui.use('form', function(){
+		var form = layui.form;
+		form.render('select'); //刷新select选择框渲染
+		form.on("checkbox(enableai)" , function(data){
+			if(data.elem.checked == true){
+				$('#enableai').show();		
+			}else{
+				$('#enableai').hide();
+			}
+		});
+	});
+</script>

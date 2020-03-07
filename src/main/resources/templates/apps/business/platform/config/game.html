@@ -1,0 +1,370 @@
+<div class="layui-layout layui-layout-content">
+	<div class="layui-side layui-beimi-left">
+		<div class="layui-side-scroll">
+		<#include "/apps/business/platform/include/left.html"/></div>
+	</div>
+	<div class="layui-body">
+		<div class="layui-side-scroll">
+			<form method="post" key="set-mine" enctype="multipart/form-data" action="/apps/platform/config/game/save.html" class="layui-form">
+				<#if gameConfig??><input type="hidden" name="id" value="${gameConfig.id!''}"></#if>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="ukefu-customer-div setting-wrapper">
+							<div class="box default-box">
+								<div class="box-header">
+									<h3 class="box-title">游戏系统设置</h3>
+								</div>
+								<div class="box-body ukefu-im-theme">
+									<div class="layui-fluid">
+										<div class="layui-col-md8">
+									    </div>
+									</div>   
+									<div class="row">
+										<div class="col-lg-8">
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">1、玩家登录后默认接入的游戏模式</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-12">
+															<p style="color:#888888;font-size:13px;margin-top:10px;">选择默认的游戏模式，游戏模式决定了登录以后的默认游戏界面</p>
+														</div>
+													</div>
+												</div>
+												<div class="box-item">
+													<input type="hidden" id="gamemodel" name="gamemodel" value="<#if gameConfig??>${gameConfig.gamemodel!''}</#if>"/>
+													<div class="row">
+														<div class="col-lg-4" style="text-align: center;">
+															<div data-type="hall" class="game_model <#if gameConfig.gamemodel?? && gameConfig.gamemodel == 'hall'>selected</#if>" title="大厅">
+																<#if gameConfig.gametype?? && gameConfig.gamemodel == "hall"><i class="layui-icon">&#xe618;</i></#if>
+																<img src="/images/hall.jpg"/>
+															</div>
+															<div style="text-align:center;color:#1E9FFF;">大厅模式</div>
+														</div>
+														<div class="col-lg-4" style="text-align: center;">
+															<div data-type="room" class="game_model <#if gameConfig.gamemodel?? && gameConfig.gamemodel == 'room'>selected</#if>" title="房卡">
+																<#if gameConfig.gametype?? && gameConfig.gamemodel == "room"><i class="layui-icon">&#xe618;</i></#if>
+																<img src="/images/room.jpg"/>
+															</div>
+															<div style="text-align:center;color:#1E9FFF;">房卡模式</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">2、启用的游戏类型</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-12">
+															<p style="color:#888888;font-size:13px;margin-top:10px;">选择启用的游戏类型，启用后，游戏类型列表中才会出现此类游戏</p>
+														</div>
+													</div>
+												</div>
+												<div class="box-item">
+													<input type="hidden" id="gametype" name="gametype" value="<#if gameConfig??>${gameConfig.gametype!''}</#if>"/>
+													<div class="row">
+														<#list gameModelList as gameModel>
+														<div class="col-lg-3 game_model_type model_${gameModel.ctype!''}" style="text-align: center;<#if gameConfig.gametype?? && gameConfig.gamemodel != gameModel.ctype>display:none;</#if>" data-type="${gameModel.ctype!''}">
+															<div data-type="${gameModel.id!''}" class="game_type game_type_${gameModel.ctype!''} <#if gameConfig.gametype?? && gameConfig.gametype?index_of(gameModel.id) gte 0>selected</#if>" title="${gameModel.name!''}">
+																<#if gameConfig.gametype?? && gameConfig.gametype?index_of(gameModel.id) gte 0><i class="layui-icon">&#xe618;</i></#if>
+																<img src="${gameModel.iconstr!''}"/>
+															</div>
+															<div style="text-align:center;color:#1E9FFF;">${gameModel.name!''}</div>
+														</div>
+														</#list>
+													</div>
+												</div>
+											</div>
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">3、无AI参与时匹配玩家的最大时长（秒）</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>如果未启用AI功能，系统会等待玩家加入游戏，此处设置最大等待时长</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">默认等待时长是30秒，超过等待时长后，大厅房间会被解散，玩家重新进入匹配模式</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="text" lay-verify="number" name="timeout" maxlength="8" value="<#if gameConfig && gameConfig.timeout?? && gameConfig.timeout gt 0>${gameConfig.timeout}<#else>30</#if>" autocomplete="off" class="layui-input" style="width:80px;display:inline;">
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">4、无AI参与等待匹配超时后自动解散房间</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>无AI参与时，达到最大等待时长后，是否自动解散房间</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">默认策略是大厅房间会被解散，玩家重新进入匹配模式</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="checkbox" id="sessiontimeout" name="sessiontimeout" title="启用" <#if gameConfig?? && gameConfig.sessiontimeout == true>checked="checked"</#if>>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">5、无AI参与超时后的提示消息</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-12">
+															<p>无AI参与时，达到最大等待时长后，游戏界面上的提示消息</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">提示消息后，玩家重新进入匹配模式</p>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-lg-12" style="text-align:right;margin-top:20px;">
+															<textarea name="timeoutmsg" autocomplete="off" class="layui-input" resize="false" style="height:90px;line-height:22px;resize: none;"><#if gameConfig && gameConfig.timeoutmsg??>${gameConfig.timeoutmsg}<#else>未匹配到玩家，房间已解散</#if></textarea>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">6、启用AnySDK接口集成功能</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>使用AnySDK的登录、分享、支付接口</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">启用后需要配置AnySDK的相关参数</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="checkbox" title="启用" name="anysdk" lay-filter="anysdk" value="1" <#if gameConfig?? && gameConfig.anysdk>checked="checked"</#if>>
+														</div>
+													</div>
+												</div>
+												<div class="row anysdk" style="margin-top:20px;<#if gameConfig?? && gameConfig.anysdk><#else>display:none;</#if>">
+													<div class="col-lg-8">
+														<p>AnySDK的授权验证服务器</p>
+														<p style="color:#888888;font-size:13px;margin-top:10px;">填写AnySDK的验证服务器地址（注意：免费版本的AnySDK没有私有部署的服务器地址）</p>
+													</div>
+													<div class="col-lg-4" style="text-align:right;">
+														<input type="text" name="oauthserver" id="oauthserver" value="${gameConfig.oauthserver!''}" autocomplete="off" class="layui-input">
+													</div>
+												</div>
+												<div class="row anysdk" style="margin-top:20px;<#if gameConfig?? && gameConfig.anysdk><#else>display:none;</#if>">
+													<div class="col-lg-8">
+														<p>AnySDK的AppKey</p>
+														<p style="color:#888888;font-size:13px;margin-top:10px;">请填写AnySDK分配的AppKey</p>
+													</div>
+													<div class="col-lg-4" style="text-align:right;">
+														<input type="text" name="appkey" id="appkey" value="${gameConfig.appkey!''}" autocomplete="off" class="layui-input">
+													</div>
+												</div>
+												<div class="row anysdk" style="margin-top:20px;<#if gameConfig?? && gameConfig.anysdk><#else>display:none;</#if>">
+													<div class="col-lg-8">
+														<p>AppKey对应的AppSecret</p>
+														<p style="color:#888888;font-size:13px;margin-top:10px;"><b style="color:red;font-weight:bold;">请输入AppSecret信息</b></p>
+													</div>
+													<div class="col-lg-4" style="text-align:right;">
+														<input type="text" name="appsecret" id="appsecret" value="${gameConfig.appsecret!''}" autocomplete="off" class="layui-input">
+													</div>
+												</div>
+												<div class="row anysdk" style="margin-top:20px;<#if gameConfig?? && gameConfig.anysdk><#else>display:none;</#if>">
+													<div class="col-lg-8">
+														<p>私钥信息（PrivateKey）</p>
+														<p style="color:#888888;font-size:13px;margin-top:10px;"><b style="color:red;font-weight:bold;">请输入私钥信息</b></p>
+													</div>
+													<div class="col-lg-4" style="text-align:right;">
+														<input type="text" name="privatekey" id="privatekey" value="${gameConfig.privatekey!''}" autocomplete="off" class="layui-input">
+													</div>
+												</div>
+											</div>
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">7、启用破产补助功能</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>玩家的金币用完以后的补助功能</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">启用后设置每天补助的次数和每次补助的金币数量</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="checkbox" title="启用" name="subsidy" lay-filter="subsidy" value="1" <#if gameConfig?? && gameConfig.subsidy>checked="checked"</#if>>
+														</div>
+													</div>
+												</div>
+												<div class="row subsidy" style="margin-top:20px;<#if gameConfig?? && gameConfig.subsidy><#else>display:none;</#if>">
+													<div class="col-lg-8">
+														<p>破产补助次数</p>
+														<p style="color:#888888;font-size:13px;margin-top:10px;">填写每个玩家每天可以进行破产补助的次数</p>
+													</div>
+													<div class="col-lg-4" style="text-align:right;">
+														<select name="subtimes">
+															<#list 1..10 as times>
+															<option value="${times}" <#if gameConfig.subtimes == times>selected="selected"</#if>>${times}次</option>
+															</#list>
+														</select>     
+														      
+													</div>
+												</div>
+												<div class="row subsidy" style="margin-top:20px;<#if gameConfig?? && gameConfig.subsidy><#else>display:none;</#if>">
+													<div class="col-lg-8">
+														<p>每次补助的金币数量</p>
+														<p style="color:#888888;font-size:13px;margin-top:10px;">填写每次破产补助的金币数量</p>
+													</div>
+													<div class="col-lg-4" style="text-align:right;">
+														<input type="text" name="subgolds" id="subgolds" value="${gameConfig.subgolds!''}" autocomplete="off" class="layui-input" lay-verify="number">
+													</div>
+												</div>
+												<div class="row subsidy" style="margin-top:20px;<#if gameConfig?? && gameConfig.subsidy><#else>display:none;</#if>">
+													<div class="col-lg-8">
+														<p>允许申请破产补助的提示消息</p>
+														<p style="color:#888888;font-size:13px;margin-top:10px;">启用破产补助的情况下，客户端弹出提示破产补助的提示消息</p>
+													</div>
+													<div class="col-lg-4" style="text-align:right;">
+														<input type="text" name="submsg" id="submsg" value="${gameConfig.submsg!''}" autocomplete="off" class="layui-input" maxlength="100">
+													</div>
+												</div>
+												<div class="row subsidy" style="margin-top:20px;<#if gameConfig?? && gameConfig.subsidy><#else>display:none;</#if>">
+													<div class="col-lg-8">
+														<p>玩家的破产补助次数用完后的提示消息</p>
+														<p style="color:#888888;font-size:13px;margin-top:10px;">破产补助次数用完以后，玩家再次点击破产补助按钮的提示消息</p>
+													</div>
+													<div class="col-lg-4" style="text-align:right;">
+														<input type="text" name="subovermsg" id="subovermsg" value="${gameConfig.subovermsg!'您今天的救济次数已用完，请充值。'}" autocomplete="off" class="layui-input" maxlength="100">
+													</div>
+												</div>
+											</div>
+											
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">8、未启用破产补助的提示消息</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>未启用破产补助，玩家点击“救济”按钮的提示消息</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">未启用破产补助功能，需要给出提示消息</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="text" name="nosubmsg" maxlength="100" value="<#if gameConfig && gameConfig.nosubmsg??>${gameConfig.nosubmsg}<#else>请，您没有救济次数啦！</#if>" autocomplete="off" class="layui-input">
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">9、金币不足时进入充值的提示消息</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>玩家金币不足的时候，点击进入游戏时的提示消息</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">玩家如果还有破产补助次数，系统会优先提示进行破产补助</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="text" name="recmsg" maxlength="100" value="<#if gameConfig && gameConfig.recmsg??>${gameConfig.recmsg}<#else>金币不足，请充值。</#if>" autocomplete="off" class="layui-input">
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">9、启用游戏福利中心的类型</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-12">
+															<p>游戏福利中心， 启用后在玩家界面上可以进入，启用后玩家才能给看到福利选项</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;"></p>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-lg-12">
+															<#list welfareTypeList as welfareType>
+															<input type="checkbox" name="welfare" title="${welfareType.name!''}" value="${welfareType.code!''}" <#if gameConfig.welfare?index_of(welfareType.code) gte 0 || (!gameConfig.welfare?? && welfareType.defaultvalue == true)>checked</#if>>
+															</#list>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3"></div>
+					<div class="col-lg-9">
+						<div class="layui-form-item">
+						  <div class="layui-input-block">
+							<button class="layui-btn" lay-submit="" lay-filter="formDemo">保存</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						  </div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script language="javascript"> 		
+	$('.game_model').on("click" , function(){
+		$('.game_model').removeClass("selected");
+		$('.game_model').find("i").remove();
+		$(this).addClass("selected");	
+		$(this).prepend("<i class='layui-icon'>&#xe618;</i>");
+		$('#gamemodel').val($(this).data("type"));
+		$(".game_model_type").hide();
+		$(".model_"+$(this).data("type")).show();
+		$("#gametype").val("");
+		
+		$('.game_type').removeClass("selected");
+		$('.game_type').find("i").remove();
+		var selgame = "" ;
+		$(".game_type_"+$(this).data("type")+":first").each(function(){
+			$(this).addClass("selected");
+			$(this).prepend("<i class='layui-icon'>&#xe618;</i>");
+			if(selgame != ""){
+				
+			}
+			selgame = selgame + $(this).data("type");
+			$('#gametype').val(selgame);
+		});
+	});
+	$('.game_type').on("click" , function(){
+		if($(this).hasClass("selected")){
+			if($('.game_type.selected').length == 1){
+				top.layer.alert("只有最后一个选项了，请选择其他游戏后再取消！");
+			}else{
+				$(this).removeClass("selected");
+				$(this).find("i").remove();
+			}
+		}else{
+			$(this).addClass("selected");	
+			$(this).prepend("<i class='layui-icon'>&#xe618;</i>");
+		}
+		var selgame = "" ;
+		$('.game_type.selected').each(function(){
+			if(selgame != ""){
+				selgame = selgame + ',';
+			}
+			selgame = selgame + $(this).data("type");
+			$('#gametype').val(selgame);
+		});
+	});
+	layui.use('form', function(){
+		var form = layui.form;
+		form.render('select'); //刷新select选择框渲染
+		form.on("checkbox(initaccount)" , function(data){
+			if(data.elem.checked == true){
+				$('#initaccount').show();		
+			}else{
+				$('#initaccount').hide();
+			}
+		});
+        form.on("checkbox(anysdk)" , function(data){
+            if(data.elem.checked == true){
+                $('.anysdk').show();
+            }else{
+                $('.anysdk').hide();
+            }
+        });
+        form.on("checkbox(subsidy)" , function(data){
+            if(data.elem.checked == true){
+                $('.subsidy').show();
+            }else{
+                $('.subsidy').hide();
+            }
+        });
+	});
+</script>

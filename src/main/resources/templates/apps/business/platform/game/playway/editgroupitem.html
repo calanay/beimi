@@ -1,0 +1,74 @@
+<div class="uk-layui-form">
+	<form class="layui-form" data-toggle="ajax-form" data-target="#mainajaxwin" method="post" data-close="false"
+		action="/apps/platform/playway/updategroupitem.html">
+		<input type="hidden" name="id" value="${groupItem.id!''}">
+		<input type="hidden" name="game" value="${game.id!''}">
+		<input type="hidden" name="groupid" value="${group.id!''}">
+		<input type="hidden" name="playwayid" value="${playway.id!''}">
+		<div class="layui-row" style="width: 400px;margin: 0 auto;padding-top: 20px;">
+			<div class="layui-col-md12">
+				<div class="layui-form-item">
+					<label class="layui-form-label">子项名称：</label>
+					<div class="layui-input-block">
+						<input type="text" name="name" required lay-verify="required" value="${groupItem.name!''}"
+							placeholder="子项名称" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">子项代码：</label>
+					<div class="layui-input-block">
+						<input type="text" name="code" required lay-verify="required|code"  value="${groupItem.code!''}"
+							   placeholder="子项代码" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">子项值：</label>
+					<div class="layui-input-block">
+						<input type="text" name="value" required lay-verify="required" value="${groupItem.value!''}"
+							   placeholder="子项值" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">默认选中：</label>
+					<div class="layui-input-block">
+						<input type="radio" name="defaultvalue" value="1" title="是"  <#if groupItem.defaultvalue?? && groupItem.defaultvalue == true>checked="checked"</#if>>
+						<input type="radio" name="defaultvalue" value="0" title="否"  <#if groupItem.defaultvalue?? && groupItem.defaultvalue == false>checked="checked"</#if>>
+					</div>
+				</div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">排序位置：</label>
+                    <div class="layui-input-block">
+                        <select name="sortindex" lay-verify="required">
+                        <#list 0..20 as inx>
+                                <option value="${inx}" <#if group.sortindex?? && group.sortindex == inx>selected="selected"</#if>>${inx+1}</option>
+                        </#list>
+                        </select>
+                    </div>
+                </div>
+			</div>
+
+        </div>
+		<div class="layui-form-button">
+			<div class="layui-button-block">
+				<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+				<a href="/apps/platform/playway/extpro.html?id=${playway.id!''}&game=${game.id!''}" class="layui-btn layui-btn-primary" data-toggle="load" data-target="#mainajaxwin">返回</a>
+				<a href="/apps/platform/playway/deleteitem.html?playwayid=${playway.id!''}&game=${game.id!''}&id=${groupItem.id!''}" class="layui-btn layui-btn-danger" data-toggle="load" data-target="#mainajaxwin">删除</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+  form.render(); //更新全部
+  form.verify({
+	  memo:[
+           /^[\S\s]{0,30}$/
+           ,'玩法简介长度不能不能超过30个字符'
+      ]
+  });
+});
+</script>

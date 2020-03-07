@@ -1,0 +1,123 @@
+<div class="layui-layout layui-layout-content">
+	<div class="layui-side layui-beimi-left">
+		<div class="layui-side-scroll">
+		<#include "/apps/business/platform/include/left.html"/></div>
+	</div>
+	<div class="layui-body">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="site-h1" style="background-color:#FFFFFF;">
+					商品列表<#if waresList??>（${waresList.totalElements!''}）</#if>
+					<span style="float:right;">
+						<div class="layui-btn-group">
+						  <a href="/apps/shop/add.html?type=${dic.id!''}" title="添加新商品" data-toggle="ajax" data-width="950" data-height="600" class="layui-btn layui-btn-sm" >
+						  <i class="layui-icon">&#xe608;</i>添加新商品</a>
+						</div>
+					</span>
+				</h1>
+				<div class="row" style="padding:5px;">
+					<div class="col-lg-12">
+						<table class="layui-table" lay-skin="line">
+						  <colgroup>
+								<col width="40%">
+								<col width="8%">
+								<col width="8%">
+								<col width="10%">
+								<col width="10%">
+								<col width="10%">
+								<col width="10%">
+								<col width="1%">
+								<col>
+						  </colgroup>
+						  <thead>
+							<tr>
+							  <th>名称</th>
+							  <th>分类</th>
+							  <th>价格/数量</th>
+							  <th>支付方式</th>
+							  <th>状态</th>
+							  <th>序号</th>
+							  <th>启用SKU</th>
+							  <th style="white-space:nowrap;" nowrap="nowrap">操作</th>
+							</tr> 
+						  </thead>
+						  <tbody>
+							<#if waresList?? && waresList.content??>
+							<#list waresList.content as wares>
+							<tr>
+							  <td>
+									<a href="">
+										<i class="gameimage">
+											<img src="/images/game/${wares.imageurl!''}.png" style="width:36px;height:36px;">
+										</i>
+										<div style="margin-left:50px;margin-top:0px;">
+											${wares.name!''}
+											<#if wares.datastatus == true><i style="color:red;">（已删除）</i></#if>
+										</div>
+										<div title="有效时间" style="margin-left:50px;margin-top:0px;color:#cccccc;font-size:13px;">
+											<#if wares.starttime == null && wares.endtime == null>
+											永久有效
+											<#else>
+											${wares.starttime!''}~${wares.endtime!''}
+											</#if>
+										</div>
+										
+									</a>
+									
+							  </td>
+							  <td>${uKeFuDic[wares.warestype!''].name!''} </td>
+							  <td>${wares.price!''}/${wares.quantity!''}</td>
+							  <td>${uKeFuDic[wares.payment!''].name!''} </td>
+							  <td>
+							  	  <#if wares.status?? && wares.status == "on">上架</#if>
+							  	  <#if wares.status?? && wares.status == "off">下架</#if>
+							  </td>
+							  <td>${wares.inx!''}</td>
+							  <td>
+							  	<#if wares.enablesku?? && wares.enablesku == true>
+							  		<i class="layui-icon" style="color:#19a55d;">&#xe618;</i>
+							  	</#if>
+							  </td>
+							  <td style="white-space:nowrap;" nowrap="nowrap">
+							  		<a href="/apps/shop/edit.html?id=${wares.id!''}" data-toggle="ajax" data-width="950" data-height="600" data-title="编辑用户信息">
+							  			<i class="layui-icon">&#xe642;</i>
+							  			编辑
+							  		</a>
+							  		<#if !(wares.warestype?? && wares.warestype == "0") && wares.datastatus != true >
+							  		<a href="/apps/shop/delete.html?id=${wares.id!''}" style="margin-left:10px;" data-toggle="tip" data-title="请确认是否删除记录？">
+							  			<i class="layui-icon" style="color:red;">&#x1006;</i>
+							  			删除
+							  		</a>
+							  		</#if>
+							  </td>
+							</tr>
+							</#list>
+							</#if>
+						  </tbody>
+						</table>
+					</div> 	   
+				</div>
+				<div class="row" style="padding:5px;">
+					<div class="col-lg-12" id="page" style="text-align:center;"></div>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+<script>
+	layui.use('laypage', function(){
+		  var laypage = layui.laypage;
+		  laypage.render({
+				elem: 'page'
+				,count: <#if waresList??>${waresList.totalElements}<#else>0</#if> //总记录
+				,limit: <#if waresList??>${waresList.size}<#else>0</#if> //总记录
+				,curr:<#if waresList??>${waresList.number+1}<#else>0</#if>
+				,groups: 5 //连续显示分页数
+				,jump:function(data , first){
+					if(!first){
+						location.href = "/apps/platform/online/gameroom.html?p="+data.curr ;
+					}
+				}
+		   });
+		});
+</script>

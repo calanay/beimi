@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "4dea0529-7182-4d6f-8426-727733cd00c9",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "癞子玩法": {
+      "ver": "1.0.3",
+      "uuid": "4c94d640-9d67-4eaf-a363-87e0951c74ec",
+      "rawTextureUuid": "4dea0529-7182-4d6f-8426-727733cd00c9",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 63,
+      "height": 63,
+      "rawWidth": 63,
+      "rawHeight": 63,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

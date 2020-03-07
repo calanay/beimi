@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+  mysql:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: beimi
+    volumes:
+      - ./docker/mysql/conf:/etc/mysql/conf.d
+      - ./docker/mysql/data:/var/lib/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  beimi:
+    image: beimi:latest
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    ports:
+      # 后台管理地址的端口号
+      - 8080:8080
+      # socket端口号
+      - 9081:9081
+  beimi-client:
+    image: nginx
+    depends_on:
+      - beimi
+    links:
+      - beimi
+    volumes:
+      # 使用CocosCreator打包发布的地址，如果是桌面应用 web-mobile 换成 desktop
+      - ./client/version/chess/build/web-mobile:/usr/share/nginx/html
+    ports:
+      # 游戏界面的访问端口号
+      - 8081:80

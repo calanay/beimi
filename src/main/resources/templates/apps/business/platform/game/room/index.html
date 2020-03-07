@@ -1,0 +1,99 @@
+<div class="layui-layout layui-layout-content">
+	<div class="layui-side layui-beimi-left">
+		<div class="layui-side-scroll">
+		<#include "/apps/business/platform/include/left.html"/></div>
+	</div>
+	<div class="layui-body">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="site-h1" style="background-color:#FFFFFF;">
+					房间列表<#if gameRoomList??>（${gameRoomList.totalElements}）</#if>
+				</h1>
+				<div class="row" style="padding:5px;">
+					<div class="col-lg-12">
+						<#if gameRoomList?? && gameRoomList.content??>
+						<table class="layui-table" lay-skin="line">
+							<thead>
+								<tr>
+									<th>创建人</th>
+									<th>创建时间</th>
+									<th>游戏类型</th>
+									<th>房卡</th>
+									<th>玩法</th>
+									<th>玩家上限</th>
+									<th>金币要求</th>
+									<th>玩家数量</th>
+									<th style="white-space:nowrap;width:1%;" nowrap="nowrap">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<#list gameRoomList.content as gameRoom>
+								<tr>
+									<td>
+										<#if gameRoom.masterUser??>${gameRoom.masterUser.username!''}</#if>
+										
+									</td>
+									<td>${gameRoom.createtime?string('yyyy-MM-dd HH:mm:ss')}</td>
+									<td>
+										<#if gameRoom.gamePlayway>
+											<#if gameModelList??>
+											<#list gameModelList as model>
+											<#if model.id == gameRoom.gamePlayway.game>
+											${model.name!''}
+											</#if>
+											</#list>
+											</#if>
+										</#if>
+									</td>
+									<td>
+										<#if gameRoom.cardroom><i class="layui-icon" style="color:#19a55d;">&#xe618;</i> </#if>
+									</td>
+									<td>
+										<#if gameRoom.gamePlayway??>${gameRoom.gamePlayway.name!''}</#if>
+									</td>
+									<td>
+										<#if gameRoom.gamePlayway??>${gameRoom.gamePlayway.players!''}</#if>
+									</td>
+									<td>
+										<#if gameRoom.gamePlayway??>${gameRoom.gamePlayway.mincoins}~${gameRoom.gamePlayway.maxcoins}</#if>
+									</td>
+									
+									<td>${gameRoom.players!''}</td>
+									<td style="white-space:nowrap;width:1%;" nowrap="nowrap">
+										<a href="/apps/platform/gameroom/delete.html?id=${gameRoom.id!''}" data-toggle="tip"
+													data-title="请确认是否删除游戏房间？"> <i class="layui-icon"
+														style="color:red;">&#x1006;</i>
+											删除
+										</a> 
+									</td>
+								</tr>
+								</#list>
+							</tbody>
+						</table>
+						</#if>
+					</div> 	   
+				</div>
+			</div>	
+		</div>
+		<div class="row" style="padding:5px;">
+			<div class="col-lg-12" id="page" style="text-align:center;"></div>
+		</div>
+	</div>
+</div>
+<script>
+	layui.use('laypage', function(){
+		  var laypage = layui.laypage;
+		  laypage.render({
+				elem: 'page'
+				,count: <#if gameRoomList??>${gameRoomList.totalElements}<#else>0</#if> //总记录
+				,limit: <#if gameRoomList??>${gameRoomList.size}<#else>0</#if> //总记录
+				,curr:<#if playersList??>${gameRoomList.number+1}<#else>0</#if>
+				,groups: 5 //连续显示分页数
+				,jump:function(data , first){
+					if(!first){
+						location.href = "/apps/platform/online/gameroom.html?p="+data.curr ;
+					}
+				}
+		   });
+		});
+</script>

@@ -1,0 +1,5 @@
+/.idea
+*.iml
+/docker/mysql/data
+/data
+/target

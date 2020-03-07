@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "990e1952-1d33-468c-82be-88e93945f131",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "血战麻将": {
+      "ver": "1.0.3",
+      "uuid": "1e0ced5b-e531-4b3c-92d7-4afe5303a914",
+      "rawTextureUuid": "990e1952-1d33-468c-82be-88e93945f131",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 185,
+      "height": 56,
+      "rawWidth": 185,
+      "rawHeight": 56,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

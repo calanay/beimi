@@ -1,0 +1,67 @@
+<div class="uk-layui-form">
+	<form class="layui-form uk-form" action="/admin/user/save.html">
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">用户名：</label>
+	    <div class="layui-input-inline">
+	      <input type="text" name="username" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+	    </div>
+	    <div class="layui-form-mid layui-word-aux">用户登录的账号</div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">姓名：</label>
+	    <div class="layui-input-inline">
+	      <input type="text" name="uname" required lay-verify="required" placeholder="请输入用户姓名" autocomplete="off" class="layui-input">
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">电子邮件</label>
+	    <div class="layui-input-inline">
+	      <input type="email" name="email" required lay-verify="required email"  placeholder="请输入电子邮件地址" autocomplete="off" class="layui-input">
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">密码</label>
+	    <div class="layui-input-inline">
+	      <input type="password" id="password" name="password" required lay-verify="required" placeholder="请输入登录密码" autocomplete="off" class="layui-input">
+	    </div>
+	    <div class="layui-form-mid layui-word-aux">
+	    	<input type="password" id="repassword" name="repassword" required lay-verify="repass" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">手机号：</label>
+	    <div class="layui-input-inline">
+	      <input type="mobile" name="mobile" required lay-verify="required|phone"  placeholder="请输入手机号码" autocomplete="off" class="layui-input">
+	    </div>
+	  </div>
+	  
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">管理员：</label>
+	    <div class="layui-input-block">
+	      <input type="checkbox" name="admin" lay-skin="switch" value="1" lay-text="是|否">
+	    </div>
+	  </div>
+	  
+	  <div class="layui-form-button">
+	    <div class="layui-button-block">
+	      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+	      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+	    </div>
+	  </div>
+	</form>
+</div>
+ 
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+  form.render(); //更新全部
+  form.verify({
+	  repass: function(value){
+	    if(value != $('#password').val()){
+	      return '两次输入的密码不一致，请确认';
+	    }
+	  }
+	});      
+});
+</script>

@@ -1,0 +1,290 @@
+<div class="layui-layout layui-layout-content">
+	<div class="layui-side layui-beimi-left">
+		<div class="layui-side-scroll">
+		<#include "/apps/business/platform/include/left.html"/></div>
+	</div>
+	<div class="layui-body">
+		<div class="layui-side-scroll">
+			<form method="post" key="set-mine" enctype="multipart/form-data" action="/apps/platform/config/account/save.html" class="layui-form">
+				<#if accountConfig??><input type="hidden" name="id" value="${accountConfig.id!''}"></#if>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="ukefu-customer-div setting-wrapper">
+							<div class="box default-box">
+								<div class="box-header">
+									<h3 class="box-title">账号设置</h3>
+								</div>
+								<div class="box-body ukefu-im-theme">
+									<div class="layui-fluid">
+										<div class="layui-col-md8">
+									    </div>
+									</div>   
+									<div class="row">
+										<div class="col-lg-8">
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">1、启用初始化账号信息数值</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>启用此功能后，用户账号注册即可包含可以使用的金币、房卡或钻石</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">默认数值为0，也可以在活动管理中赠送金币、钻石或房卡</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="checkbox" name="initaccount" lay-filter="initaccount" title="启用" <#if accountConfig?? && accountConfig.initaccount == true>checked="checked"</#if>>
+														</div>
+													</div>
+												</div>
+												<div class="box-item" id="initaccount" style="<#if accountConfig?? && accountConfig.initaccount == true><#else>display:none;</#if>">
+													<div class="row" style="margin-top:20px;">
+														<div class="col-lg-8">
+															<p>
+																a、账号初始金币数量
+															</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">
+																玩家或游客注册账号时，初始化金币数量
+															</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<div class="layui-box">
+																<input type="text" lay-verify="number" name="initcoins" maxlength="8" value="<#if accountConfig && accountConfig.initcoins??>${accountConfig.initcoins}<#else>5000</#if>" autocomplete="off" class="layui-input" style="width:80px;display:inline;">
+															</div>
+														</div>
+													</div>
+													<div class="row" id="initaccount" style="margin-top:20px;">
+														<div class="col-lg-8">
+															<p>
+																b、账号初始房卡数量
+															</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">
+																玩家或游客注册账号时，初始化金币数量
+															</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<div class="layui-box">
+																<input type="text" name="initcards" lay-verify="number" maxlength="3" value="<#if accountConfig && accountConfig.initcards??>${accountConfig.initcards}<#else>10</#if>" autocomplete="off" class="layui-input" style="width:80px;display:inline;">
+															</div>
+														</div>
+													</div>
+													<div class="row" id="initaccount" style="margin-top:20px;">
+														<div class="col-lg-8">
+															<p>
+																c、账号初始钻石数量
+															</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">
+																玩家或游客注册账号时，初始化钻石数量
+															</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<div class="layui-box">
+																<input type="text" name="initdiamonds" lay-verify="number" maxlength="3" value="<#if accountConfig && accountConfig.initdiamonds??>${accountConfig.initdiamonds}<#else>10</#if>" autocomplete="off" class="layui-input" style="width:80px;display:inline;">
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">2、账号登录的默认有效期时长</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>玩家的登录信息有效期时长，默认是7天</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">设置登录有效期时长，单位是天</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="text" name="initdiamonds" lay-verify="number" maxlength="4" value="<#if accountConfig && accountConfig.initdiamonds??>${accountConfig.initdiamonds}<#else>10</#if>" autocomplete="off" class="layui-input" style="width:80px;display:inline;">
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">3、启用对话场景识别</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>启用此功能后，系统将会识别当前用户的对话场景</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">前置识别失败的情况下启用，或场景识别优先的情况下启用</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="checkbox" id="enablescene" name="enablescene" title="启用" <#if aiConfig?? && aiConfig.enablescene == true>checked="checked"</#if>>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">4、优先启用对话场景识别</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>启用此功能后，优先使用场景识别功能响应用户请求</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">优先场景识别，识别失败后，启用后续匹配功能</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="checkbox" id="scenefirst" name="scenefirst" title="启用" <#if aiConfig?? && aiConfig.scenefirst == true>checked="checked"</#if>>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">5、启用关键词、关键短语识别</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>启用此功能后，优先使用场景识别功能响应用户请求</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">优先场景识别，识别失败后，启用后续匹配功能</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="checkbox" id="enablekeyword" name="enablekeyword" title="启用" <#if aiConfig?? && aiConfig.enablekeyword == true>checked="checked"</#if>>
+														</div>
+													</div>
+												</div>
+												<div class="box-item" id="re_timeout_tip">	
+													<div class="row">
+														<div class="col-lg-8">
+															<p>最多识别的关键词、短语数量</p>
+														</div>
+														<div class="col-lg-4">
+															<select name="keywordnum">
+																<option value="1" <#if aiConfig?? && aiConfig.keywordnum?? && aiConfig.keywordnum == 1>selected="selected"</#if>>1</option>
+																<option value="2" <#if aiConfig?? && aiConfig.keywordnum?? && aiConfig.keywordnum == 2>selected="selected"</#if>>2</option>
+																<option value="3" <#if aiConfig?? && aiConfig.keywordnum?? && aiConfig.keywordnum == 3>selected="selected"</#if>>3</option>
+																<option value="4" <#if aiConfig?? && aiConfig.keywordnum?? && aiConfig.keywordnum == 4>selected="selected"</#if>>4</option>
+															  	<option value="5" <#if !aiConfig?? || aiConfig.keywordnum == 5>selected="selected"</#if>>5</option>
+															  	<option value="6" <#if aiConfig?? && aiConfig.keywordnum?? && aiConfig.keywordnum == 6>selected="selected"</#if>>6</option>
+															  	<option value="7" <#if aiConfig?? && aiConfig.keywordnum?? && aiConfig.keywordnum == 7>selected="selected"</#if>>7</option>
+															  	<option value="8" <#if aiConfig?? && aiConfig.keywordnum?? && aiConfig.keywordnum == 8>selected="selected"</#if>>8</option>
+															  	<option value="9" <#if aiConfig?? && aiConfig.keywordnum?? && aiConfig.keywordnum == 9>selected="selected"</#if>>9</option>
+															  	<option value="10" <#if aiConfig?? && aiConfig.keywordnum?? && aiConfig.keywordnum == 10>selected="selected"</#if>>10</option>
+															  	<option value="15" <#if aiConfig?? && aiConfig.keywordnum?? && aiConfig.keywordnum == 15>selected="selected"</#if>>15</option>
+															  	<option value="20" <#if aiConfig?? && aiConfig.keywordnum?? && aiConfig.keywordnum == 20>selected="selected"</#if>>20</option>
+															</select>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">6、智能机器人未命中结果后回复内容</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-12">
+															<textarea name="noresultmsg" id="noresultmsg" autocomplete="off" class="layui-input" resize="false" style="height:90px;line-height:22px;resize: none;"><#if aiConfig?? && aiConfig.noresultmsg??>${aiConfig.noresultmsg}</#if></textarea>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="ukefu-webim-prop">
+												<div class="ukefu-webim-tl" style="clear:both;">7、启用询问访客是否解决问题功能</div>
+												<div class="box-item">
+													<div class="row">
+														<div class="col-lg-8">
+															<p>启用此功能后，在结束咨询问答的时候，提示访客对问答结果是否满意</p>
+															<p style="color:#888888;font-size:13px;margin-top:10px;">优先场景识别，识别失败后，启用后续匹配功能</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="checkbox" id="askqs" name="askqs" lay-filter="askqs" title="启用" <#if aiConfig?? && aiConfig.askqs == true>checked="checked"</#if>>
+														</div>
+													</div>
+												</div>
+												<div class="box-item" id="askqs_item" style="<#if aiConfig?? && aiConfig.askqs == false>display:none;</#if>">	
+													<div class="row" style="margin-bottom:20px;">
+														<div class="col-lg-8">
+															<p>a、最大空闲时长（秒）</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="text" name="asktimes" id="asktimes" lay-verify="number" value="<#if aiConfig?? && aiConfig.asktimes gt 0>${aiConfig.asktimes}<#else>120</#if>" autocomplete="off" class="layui-input" style="width:80px;display:inline;">
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-lg-8">
+															<p>b、超时后提示文本</p>
+														</div>
+													</div>
+													<div class="row"  style="margin-bottom:20px;">
+														<div class="col-lg-12">
+															<textarea name="asktipmsg" id="asktipmsg" autocomplete="off" class="layui-input" resize="false" style="height:90px;line-height:22px;resize: none;"><#if aiConfig?? && aiConfig.asktipmsg??>${aiConfig.asktipmsg}<#else>您好，小E是否已经解决了您的问题？</#if></textarea>
+														</div>
+													</div>
+													<div class="row"  style="margin-bottom:20px;">
+														<div class="col-lg-8">
+															<p>c、已解决提示文本</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="text" name="resolved" id="resolved"  maxlength="255" value="<#if aiConfig?? && aiConfig.resolved??>${aiConfig.resolved}<#else>已解决（关闭对话）</#if>" autocomplete="off" class="layui-input">
+														</div>
+													</div>
+													<div class="row"  style="margin-bottom:20px;">
+														<div class="col-lg-8">
+															<p>d、未解决提示文本</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="text" name="unresolved" id="unresolved"  value="<#if aiConfig?? && aiConfig.unresolved??>${aiConfig.unresolved}<#else>未解决（转人工坐席）</#if>" autocomplete="off" class="layui-input">
+														</div>
+													</div>
+													<div class="row"  style="margin-bottom:20px;">
+														<div class="col-lg-8">
+															<p>e、未解决跳转到人工坐席</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="checkbox" id="redirectagent" name="redirectagent" title="启用" <#if aiConfig?? && aiConfig.redirectagent == true>checked="checked"</#if>>
+														</div>
+													</div>
+													<div class="row"  style="margin-bottom:20px;">
+														<div class="col-lg-8">
+															<p>f、转人工时开启选择技能组</p>
+														</div>
+														<div class="col-lg-4" style="text-align:right;">
+															<input type="checkbox" id="selectskill" name="selectskill" title="启用" <#if aiConfig?? && aiConfig.selectskill == true>checked="checked"</#if>>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-lg-8">
+															<p>g、选择技能组提示文本</p>
+														</div>
+													</div>
+													<div class="row"  style="margin-bottom:20px;">
+														<div class="col-lg-12">
+															<textarea name="selectskillmsg" id="selectskillmsg" autocomplete="off" class="layui-input" resize="false" style="height:70px;line-height:22px;resize: none;" maxlength="255"><#if aiConfig?? && aiConfig.selectskillmsg??>${aiConfig.selectskillmsg}<#else>请选择您要咨询的问题分类？</#if></textarea>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3"></div>
+					<div class="col-lg-9">
+						<div class="layui-form-item">
+						  <div class="layui-input-block">
+							<button class="layui-btn" lay-submit="" lay-filter="formDemo">保存</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						  </div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script language="javascript"> 		
+	layui.use('form', function(){
+		var form = layui.form;
+		form.render('select'); //刷新select选择框渲染
+		form.on("checkbox(initaccount)" , function(data){
+			if(data.elem.checked == true){
+				$('#initaccount').show();		
+			}else{
+				$('#initaccount').hide();
+			}
+		});
+	});
+</script>

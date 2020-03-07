@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "f8618a78-fd95-49d9-a72c-43789f1ba67a",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "经典斗地主": {
+      "ver": "1.0.3",
+      "uuid": "ba3fb186-cf06-4f09-a58f-afc62489be83",
+      "rawTextureUuid": "f8618a78-fd95-49d9-a72c-43789f1ba67a",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 405,
+      "height": 149,
+      "rawWidth": 405,
+      "rawHeight": 149,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

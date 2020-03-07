@@ -1,0 +1,43 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "majiang_selectcards",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 1.5,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "1b2765d4-f1e8-4021-9496-4b02b80e89c1"
+            }
+          },
+          {
+            "frame": 0.48333333333333334,
+            "value": {
+              "__uuid__": "dfd0d3ee-4d56-4ad2-a8af-51bbe284379e"
+            }
+          },
+          {
+            "frame": 0.9833333333333333,
+            "value": {
+              "__uuid__": "d15faaa9-45da-4cc6-94d3-d02ef86bedbc"
+            }
+          },
+          {
+            "frame": 1.4833333333333334,
+            "value": {
+              "__uuid__": "0c9153f1-b5d7-4933-8385-f465593be197"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

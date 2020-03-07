@@ -1,0 +1,77 @@
+<ul class="layui-nav layui-nav-tree" lay-filter="demo">
+	<li class="layui-nav-item <#if subtype?? && subtype == 'content'>layui-this</#if>">
+		<a class="layui-nav-default" href="/admin/content.html">业务概况</a>
+	</li>
+	<li class="layui-nav-item layui-nav-itemed">
+	<a class="layui-nav-title" 
+		href="javascript:;">游戏设置</a>
+		<dl class="layui-nav-child">
+			<dd  <#if subtype?? && subtype == 'account'>class="layui-this"</#if>>
+				<a href="/apps/platform/config/account.html">用户账号</a>
+			</dd>
+			<dd  <#if subtype?? && subtype == 'gameconfig'>class="layui-this"</#if>>
+				<a href="/apps/platform/config/game.html">游戏设置</a>
+			</dd>
+			<dd  <#if subtype?? && subtype == 'aiconfig'>class="layui-this"</#if>>
+				<a href="/apps/platform/config/ai.html">机器人设置</a>
+			</dd>
+		</dl>
+	</li>
+	
+	<li class="layui-nav-item layui-nav-itemed">
+		<a class="layui-nav-title" href="javascript:;">玩法设置</a>
+		<dl class="layui-nav-child">
+			<#if gameTypeList??>
+			<#list gameTypeList as gameType>
+			<dd  <#if subtype?? && subtype == 'playway' && game?? && game.id == gameType.id>class="layui-this"</#if>>
+				<a href="/apps/platform/playway.html?id=${gameType.id!''}">${gameType.name!''}</a>
+			</dd>
+			</#list>
+			</#if>
+			
+			<dd  <#if subtype?? && subtype == 'mjcardstype'>class="layui-this"</#if>>
+				<a href="/apps/platform/mjcardstype.html">麻将牌型</a>
+			</dd>
+		</dl>
+	</li>
+	
+	<li class="layui-nav-item layui-nav-itemed">
+		<a class="layui-nav-title" href="javascript:;">游戏商城</a>
+		<dl class="layui-nav-child">
+			<#if shopWaresTypeList??>
+			<#list shopWaresTypeList as shopWaresType>
+			<dd  <#if subtype?? && subtype == 'wares' && shopWaresType?? && shopWaresType.id == dic.id>class="layui-this"</#if>>
+				<a href="/apps/shop/wares.html?type=${shopWaresType.id!''}">${shopWaresType.name!''}</a>
+			</dd>
+			</#list>
+			</#if>
+		</dl>
+	</li>
+	
+	<li class="layui-nav-item layui-nav-itemed">
+		<a class="layui-nav-title" href="javascript:;">订单管理</a>
+		<dl class="layui-nav-child">
+			<dd  <#if subtype?? && subtype == 'orders'>class="layui-this"</#if>>
+				<a href="/apps/shop/orders.html">订单管理</a>
+			</dd>
+			<dd  <#if subtype?? && subtype == 'orderhis'>class="layui-this"</#if>>
+				<a href="/apps/shop/orderhis.html">购买记录</a>
+			</dd>
+		</dl>
+	</li>
+	
+	<li class="layui-nav-item layui-nav-itemed">
+		<a class="layui-nav-title" href="javascript:;">游戏信息</a>
+		<dl class="layui-nav-child">
+			<dd  <#if subtype?? && subtype == 'gameusers'>class="layui-this"</#if>>
+				<a href="/apps/platform/gameusers.html">注册玩家</a>
+			</dd>
+			<dd  <#if subtype?? && subtype == 'onlinegameusers'>class="layui-this"</#if>>
+				<a href="/apps/platform/online/gameusers.html">在线玩家</a>
+			</dd>
+			<dd  <#if subtype?? && subtype == 'gameroom'>class="layui-this"</#if>>
+				<a href="/apps/platform/gameroom.html">游戏房间</a>
+			</dd>
+		</dl>
+	</li>
+</ul>

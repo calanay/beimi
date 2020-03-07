@@ -1,0 +1,72 @@
+<div class="uk-layui-form">
+	<form class="layui-form" data-toggle="ajax-form" data-target="#mainajaxwin" method="post" data-close="false"
+		action="/apps/platform/playway/updategroup.html">
+		<input type="hidden" name="id" value="${group.id!''}">
+		<input type="hidden" name="game" value="${game.id!''}">
+		<input type="hidden" name="playwayid" value="${playway.id!''}">
+		<div class="layui-row" style="width: 400px;margin: 0 auto;padding-top: 20px;">
+			<div class="layui-col-md12">
+				<div class="layui-form-item">
+					<label class="layui-form-label">分组名称：</label>
+					<div class="layui-input-block">
+						<input type="text" name="name" required lay-verify="required" value="${group.name!''}"
+							placeholder="分组名称" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">选项类型：</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="radio" title="单选" <#if group.type?? && group.type == "radio">checked="checked"</#if>>
+						<input type="radio" name="type" value="checkbox" title="多选" <#if group.type?? && group.type == "checkbox">checked="checked"</#if>>
+                    </div>
+                </div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">分组样式：</label>
+					<div class="layui-input-block">
+						<input type="radio" name="style" value="three" title="三列" <#if group.style?? && group.style== "three">checked="checked"</#if>>
+						<input type="radio" name="style" value="four" title="四列" <#if !group.style?? || group.style == "four">checked="checked"</#if>>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">排序位置：</label>
+					<div class="layui-input-block">
+						<select name="sortindex" lay-verify="required">
+							<#list 0..20 as inx>
+							<option value="${inx}" <#if group.sortindex?? && group.sortindex == inx>selected="selected"</#if>>${inx+1}</option>
+						</#list>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">分组代码：</label>
+					<div class="layui-input-block">
+						<input type="text" name="code" required lay-verify="required|code" value="${group.code!''}"
+							   placeholder="分组代码" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+
+        </div>
+		<div class="layui-form-button">
+			<div class="layui-button-block">
+				<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+				<a href="/apps/platform/playway/extpro.html?id=${playway.id!''}&game=${game.id!''}" class="layui-btn layui-btn-primary" data-toggle="load" data-target="#mainajaxwin">返回</a>
+				<a href="/apps/platform/playway/deletegroup.html?playwayid=${playway.id!''}&game=${game.id!''}&id=${group.id!''}" class="layui-btn layui-btn-danger" data-toggle="load" data-target="#mainajaxwin">删除</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+  form.render(); //更新全部
+  form.verify({
+	  code:[
+           /^[\S\s]{0,30}$/
+           ,'玩法简介长度不能不能超过30个字符'
+      ]
+  });
+});
+</script>

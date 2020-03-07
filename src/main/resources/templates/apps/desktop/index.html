@@ -1,0 +1,468 @@
+<div class="layui-side layui-beimi-left layui-left-black">
+	<div class="layui-side-scroll">
+		<div class="layui-row">
+	<div class="col-lg-12">
+		<h1 class="site-h1">
+			账号信息（${.now?string("yyyy-MM-dd")}）
+		</h1>
+		<div class="box ukefu-console" style="padding-top:0px !important;">
+			<img src="/images/bg.jpg"
+				alt="admin">
+			<div class="ukefu-user-index">
+				<h1>
+					${user.username!''}（${user.uname!''}）
+				  	<span style="color:#c00;">
+				  		<#if user?? && user.roleList??>
+				  			<#list user.roleList as role>
+				  				${role.name!''}
+				  			</#list>
+				  		</#if>
+				  	</span>
+				</h1>
+				<#if user.lastlogintime??>
+				<div class="ukefu-join-time ukefu-text-muted">
+                             登录时间：${user.lastlogintime?string("HH:mm:ss")}
+				</div>
+				</#if>
+			</div>
+		</div>
+		<div class="box ukefu-console">
+			<div class="ukefu-relation">
+				<span lay-event="" class="ukefu-relation-item">会话<a
+					href="/service/current/index.html"
+					class="measure"> 2 </a>
+				</span> <span lay-event="" class="ukefu-relation-item">邀请<a
+					href="/apps/onlineuser.html"
+					class="measure"> 1 </a>
+				</span> <span lay-event="" class="ukefu-relation-item">拒绝<a
+					href="/apps/onlineuser.html"
+					class="measure" > 0 </a>
+				</span>
+			</div>
+		</div>
+		<div class="box ukefu-console">
+			<div class="ukefu-relation">
+				<span lay-event="" class="ukefu-relation-item" style="width:20%;">已接待<a
+					href="/service/history/index.html"
+					class="measure"> 14 </a>
+				</span>
+				<span class="ukefu-relation-item" style="width:55%;">平均会话时长
+					<a
+						href="/service/history/index.html"
+						class="measure"> 00:22:54</a>
+				</span> 
+			</div>
+		</div>
+	</div>
+</div>	
+<div class="layui-row">
+	<div class="col-lg-12"  style="padding:5px;border-top: 5px solid #e6e6e6;">
+		<div class="layui-tab layui-tab-brief ukefu-webim-tab" lay-filter="docDemoTabBrief">
+		  <ul class="layui-tab-title">
+			<li class="layui-this"><i class="layui-icon">&#xe631;</i></li>
+			<!-- 
+			<li><i class="kfont">&#xe604;</i></li>
+			<li><i class="layui-icon">&#xe615;</i></li>
+			 -->
+		  </ul>
+		  <div class="layui-tab-content">
+			<div class="layui-tab-item layui-show">
+				<ul class="ukewo-btn-group">
+					<li class="layui-this">
+						<a href="/apps/content.html" class="ukefu-bt">
+							<i class="kfont ukewo-btn">&#xe717;</i>
+							<div class="ukefu-bt-text">
+								<div class="ukefu-bt-text-title" style="">
+									首页
+								</div>
+								<div class="ukefu-bt-text-content" style="">
+									在线的访客详细信息
+								</div>
+							</div>
+						</a>
+					</li>
+					<li >
+						<a href="/apps/onlineuser.html" class="ukefu-bt">
+							<i class="layui-icon ukewo-btn">&#xe612;</i>
+							<div class="ukefu-bt-text">
+								<div class="ukefu-bt-text-title" style="">
+									在线访客
+								</div>
+								<div class="ukefu-bt-text-content" style="">
+									在线的访客详细信息
+								</div>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		  </div>
+		</div>
+	</div>
+</div>		</div>
+</div>
+<div class="layui-body">
+	<div class="layui-side-scroll">
+		<div class="layui-row">
+			<div class="col-lg-12">
+				<h1 class="site-h1">
+					在线游戏业务概况
+				</h1>
+				<div class="layui-row">
+					<div class="layui-col-md3">
+						<div class="ukefu-measure">
+							<a href="/apps/onlineuser.html" class="ukefu-bt"> 
+								<i class="layui-icon ukewo-btn ukefu-measure-btn">&#xe612;</i>
+								<div class="ukefu-bt-text">
+									<div class="ukefu-bt-text-title" style="font-weight:400;font-size:19px;">0/0</div>
+									<div class="ukefu-bt-text-content" style="">玩家：在线/离线</div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="layui-col-md3">
+						<div class="ukefu-measure">
+							<a href="/service/agent/index.html" class="ukefu-bt"> 
+								<i class="kfont icon-iconfontagent ukewo-btn ukefu-measure-btn ukefu-bg-color-yellow"></i>
+								<div class="ukefu-bt-text">
+									<div class="ukefu-bt-text-title" style="font-weight:400;font-size:19px;">1/2</div>
+									<div class="ukefu-bt-text-content" style="">统计:今日/总计</div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="layui-col-md3">
+						<div class="ukefu-measure">
+							<a href="/service/quene/index.html" class="ukefu-bt"> 
+								<i class="layui-icon ukewo-btn ukefu-measure-btn ukefu-bg-color-pink">&#xe63a;</i>
+								<div class="ukefu-bt-text">
+									<div class="ukefu-bt-text-title" style="font-weight:400;font-size:19px;">1/0</div>
+									<div class="ukefu-bt-text-content" style="">金币：发放/消费</div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="layui-col-md3">
+						<div class="ukefu-measure">
+							<a href="/apps/onlineuser.html" class="ukefu-bt"> 
+								<i class="layui-icon ukewo-btn ukefu-measure-btn ukefu-bg-color-green">&#xe62c;</i>
+								<div class="ukefu-bt-text">
+									<div class="ukefu-bt-text-title" style="font-weight:400;font-size:19px;">142/244</div>
+									<div class="ukefu-bt-text-content" style="">房间:活跃/今日</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-row">
+			<div class="layui-col-md6">
+				<h1 class="site-h1" style="border-top:1px solid #e6e6e6;margin-top:15px;">
+					玩家地区分布
+				</h1>
+				<div class="layui-row">
+					<div class="layui-col-md12">
+						<div id="area"></div> 
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-md6">
+				<h1 class="site-h1" style="border-top:1px solid #e6e6e6;margin-top:15px;">
+					游戏房间概况
+				</h1>
+				<div class="layui-row">
+					<div class="layui-col-md12">
+						<div id="room"></div> 
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-row">
+			<div class="layui-col-md6">
+				<h1 class="site-h1" style="border-top:1px solid #e6e6e6;margin-top:15px;">
+					玩家增长趋势（最近7天）
+				</h1>
+				<div class="layui-row">
+					<div class="layui-col-md12">
+						<div id="playertrends"></div> 
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-md6">
+				<h1 class="site-h1" style="border-top:1px solid #e6e6e6;margin-top:15px;">
+					金币消耗趋势（最近7天）
+				</h1>
+				<div class="layui-row">
+					<div class="layui-col-md12">
+						<div id="goldtrends"></div> 
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="layui-row">
+			<div class="layui-col-md6">
+				<h1 class="site-h1" style="border-top:1px solid #e6e6e6;margin-top:15px;">
+					玩家流失趋势（最近7天）
+				</h1>
+				<div class="layui-row">
+					<div class="layui-col-md12">
+						<div id="losttrends"></div> 
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-md6">
+				<h1 class="site-h1" style="border-top:1px solid #e6e6e6;margin-top:15px;">
+					活跃玩家趋势（最近7天）
+				</h1>
+				<div class="layui-row">
+					<div class="layui-col-md12">
+						<div id="activetrends"></div> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+  const area = [
+    { year: '北京', online: 38 },
+    { year: '上海', online: 52 },
+    { year: '广东', online: 61 },
+    { year: '天津', online: 145 },
+    { year: '江苏', online: 48 },
+    { year: '浙江', online: 38 },
+    { year: '山东', online: 38 },
+    { year: '湖北', online: 38 },
+  ];
+  const chart = new G2.Chart({
+    container: 'area',
+    forceFit: true,
+    height: 160,
+    padding: [ 10, 40 ]
+  });
+  chart.source(area);
+  chart.scale('online', {
+    tickInterval: 20
+  });
+  chart.interval().position('year*online').color("year");
+  chart.render();
+</script>
+<script>
+  const { DataView } = DataSet;
+  const room = [
+    { item: '房卡斗地主', count: 40 },
+    { item: '房卡麻将', count: 21 },
+    { item: '大厅斗地主', count: 17 },
+    { item: '大厅麻将', count: 13 }
+  ];
+  const dv = new DataView();
+  dv.source(room).transform({
+    type: 'percent',
+    field: 'count',
+    dimension: 'item',
+    as: 'percent'
+  });
+  const roomchart = new G2.Chart({
+    container: 'room',
+    forceFit: true,
+    height: 160,
+    padding: [ 10, 40 ]
+  });
+  roomchart.source(dv, {
+    percent: {
+      formatter: val => {
+        val =  (val * 100).toFixed(2) + '%';
+        return val;
+      }
+    }
+  });
+  roomchart.coord('theta', {
+    radius: 0.75
+  });
+  roomchart.tooltip({
+    showTitle: false,
+    itemTpl: '<li><span style="background-color:{color};" class="g2-tooltip-marker"></span>{name}: {value}</li>'
+  });
+  roomchart.intervalStack()
+    .position('percent')
+    .color('item')
+    .label('percent', {
+      formatter: (val, item) => {
+        return item.point.item + ': ' + val;
+      }
+    })
+    .tooltip('item*percent', (item, percent) => {
+      percent = percent * 100 + '%';
+      return {
+        name: item,
+        value: percent
+      };
+    })
+    .style({
+      lineWidth: 1,
+      stroke: '#fff'
+    });
+  roomchart.render();
+</script>
+<script>
+  const playertrends = [
+    { day: '2017-11-19', player: 412},
+    { day: '2017-11-20', player: 489},
+    { day: '2017-11-21', player: 432},
+    { day: '2017-11-22', player: 564},
+    { day: '2017-11-23', player: 653},
+    { day: '2017-11-24', player: 721},
+    { day: '2017-11-25', player: 843},
+    { day: '2017-11-26', player: 754},
+    { day: '2017-11-27', player: 875},
+    { day: '2017-11-28', player: 1021},
+    { day: '2017-11-29', player: 1291},
+    { day: '2017-11-30', player: 1211}
+  ];
+  const playertrendschart = new G2.Chart({
+    container: 'playertrends',
+    forceFit: true,
+    height: 220,
+    padding: [ 10, 40 ]
+  });
+  playertrendschart.source(playertrends);
+  playertrendschart.scale('player', {
+    min: 0
+  });
+  playertrendschart.scale('day', {
+    range: [ 0 , 1 ]
+  });
+  playertrendschart.tooltip({
+    crosshairs: {
+      type: 'line'
+    }
+  });
+  playertrendschart.line().position('day*player').shape('smooth');
+  playertrendschart.point().position('day*player').size(4).shape('circle').style({
+    stroke: '#fff',
+    lineWidth: 1
+  });
+  playertrendschart.render();
+</script>
+<script>
+  const goldtrends = [
+    { day: '2017-11-19', gold: 500000},
+    { day: '2017-11-20', gold: 244000},
+    { day: '2017-11-21', gold: 284000},
+    { day: '2017-11-22', gold: 1244000},
+    { day: '2017-11-23', gold: 2044000},
+    { day: '2017-11-24', gold: 2744000},
+    { day: '2017-11-25', gold: 1000000},
+    { day: '2017-11-26', gold: 1760000},
+    { day: '2017-11-27', gold: 2760000},
+    { day: '2017-11-28', gold: 1160000},
+    { day: '2017-11-29', gold: 1168000},
+    { day: '2017-11-30', gold: 3760000}
+  ];
+  const goldtrendschart = new G2.Chart({
+    container: 'goldtrends',
+    forceFit: true,
+    height: 220,
+    padding: [ 10, 40 ]
+  });
+  goldtrendschart.source(goldtrends);
+  goldtrendschart.scale('gold', {
+    min: 0
+  });
+  goldtrendschart.scale('day', {
+    range: [ 0 , 1 ]
+  });
+  goldtrendschart.tooltip({
+    crosshairs: {
+      type: 'line'
+    }
+  });
+  goldtrendschart.line().position('day*gold').shape('smooth');
+  goldtrendschart.point().position('day*gold').size(4).shape('circle').style({
+    stroke: '#fff',
+    lineWidth: 1
+  });
+  goldtrendschart.render();
+</script>
+<script>
+  const losttrends = [
+    { day: '2017-11-19', lost: 531},
+    { day: '2017-11-20', lost: 453},
+    { day: '2017-11-21', lost: 432},
+    { day: '2017-11-22', lost: 244},
+    { day: '2017-11-23', lost: 452},
+    { day: '2017-11-24', lost: 242},
+    { day: '2017-11-25', lost: 142},
+    { day: '2017-11-26', lost: 422},
+    { day: '2017-11-27', lost: 124},
+    { day: '2017-11-28', lost: 242},
+    { day: '2017-11-29', lost: 291},
+    { day: '2017-11-30', lost: 211}
+  ];
+  const losttrendschart = new G2.Chart({
+    container: 'losttrends',
+    forceFit: true,
+    height: 220,
+    padding: [ 10, 40 ]
+  });
+  losttrendschart.source(losttrends);
+  losttrendschart.scale('lost', {
+    min: 0
+  });
+  losttrendschart.scale('day', {
+    range: [ 0 , 1 ]
+  });
+  losttrendschart.tooltip({
+    crosshairs: {
+      type: 'line'
+    }
+  });
+  losttrendschart.line().position('day*lost').shape('smooth');
+  losttrendschart.point().position('day*lost').size(4).shape('circle').style({
+    stroke: '#fff',
+    lineWidth: 1
+  });
+  losttrendschart.render();
+</script>
+<script>
+  const activetrends = [
+    { day: '2017-11-19', active: 2400},
+    { day: '2017-11-20', active: 4000},
+    { day: '2017-11-21', active: 4300},
+    { day: '2017-11-22', active: 2900},
+    { day: '2017-11-23', active: 1924},
+    { day: '2017-11-24', active: 2243},
+    { day: '2017-11-25', active: 2456},
+    { day: '2017-11-26', active: 6543},
+    { day: '2017-11-27', active: 5443},
+    { day: '2017-11-28', active: 5436},
+    { day: '2017-11-29', active: 4534},
+    { day: '2017-11-30', active: 4958}
+  ];
+  const activetrendschart = new G2.Chart({
+    container: 'activetrends',
+    forceFit: true,
+    height: 220,
+    padding: [ 10, 40 ]
+  });
+  activetrendschart.source(activetrends);
+  activetrendschart.scale('active', {
+    min: 0
+  });
+  activetrendschart.scale('day', {
+    range: [ 0 , 1 ]
+  });
+  activetrendschart.tooltip({
+    crosshairs: {
+      type: 'line'
+    }
+  });
+  activetrendschart.line().position('day*active').shape('smooth');
+  activetrendschart.point().position('day*active').size(4).shape('circle').style({
+    stroke: '#fff',
+    lineWidth: 1
+  });
+  activetrendschart.render();
+</script>

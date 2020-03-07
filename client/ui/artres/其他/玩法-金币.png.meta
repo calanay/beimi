@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "77eb4f83-80f6-47d6-b691-3eb08a065935",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "玩法-金币": {
+      "ver": "1.0.3",
+      "uuid": "2a63982b-d0c6-4b1e-9a9b-52aca1fd3e4e",
+      "rawTextureUuid": "77eb4f83-80f6-47d6-b691-3eb08a065935",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 21,
+      "height": 21,
+      "rawWidth": 21,
+      "rawHeight": 21,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

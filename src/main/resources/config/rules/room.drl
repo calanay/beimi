@@ -1,0 +1,17 @@
+//created on: 28.05.2015
+package beimi.room
+//list any import classes here.
+import com.beimi.web.model.GameRoom
+dialect  "mvel"
+
+//declare any global variables here
+
+
+rule "createroom"
+	salience 100
+	lock-on-active true
+    when
+        $gameRoom:GameRoom(extparams!= null , extparams.get("gametype") == "dizhu")
+    then
+        modify($gameRoom) {numofgames = $gameRoom.extparams["games"] };
+end

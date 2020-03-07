@@ -1,0 +1,28 @@
+<div class="uk-layui-form">
+    <form class="layui-form uk-form" action="/admin/template/save.html">
+    	<input type="hidden" name="templettype" value="${sysDic.id!''}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">模板名称：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" required lay-verify="required" placeholder="请输入模板名称" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+            	<font color="red">*</font> 
+            	模板名称，请使用字母填写
+            </div>
+        </div>
+        
+        <div class="layui-form-button">
+            <div class="layui-button-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+layui.use('form', function(){
+  var form = layui.form;
+  form.render();
+});
+</script>

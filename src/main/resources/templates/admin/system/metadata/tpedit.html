@@ -1,0 +1,78 @@
+<div class="uk-layui-form">
+	<form class="layui-form uk-form" action="/admin/metadata/properties/update.html">
+		<input type="hidden" name="id" value="${tp.id!''}">
+		<div class="layui-form-item">
+			<label class="layui-form-label">标题：</label>
+			<div class="layui-input-inline">
+				<input type="text" name="name" value="${tp.name!''}"
+					required lay-verify="required" placeholder="标题"
+					autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">禁用导入导出：</label>
+				<div class="layui-input-inline" style="line-height: 35px;width:80px;">
+					<input type="checkbox" name="impfield" lay-skin="switch" value="1" <#if tp.impfield == true>checked="checked"</#if> lay-text="开启|关闭">
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">启用字典：</label>
+				<div class="layui-input-inline" style="line-height: 35px;width:80px;">
+					<input type="checkbox" name="seldata" lay-filter="dic" lay-skin="switch" value="1" <#if tp.seldata == true>checked="checked"</#if> lay-text="开启|关闭">
+				</div>
+			</div>
+		</div>
+		
+		<div class="layui-form-item" id="sysdicsel" style="<#if tp.seldata == false>display:none;</#if>">
+			<div class="layui-inline">
+				<label class="layui-form-label">字典项：</label>
+				<div class="layui-input-inline">
+					<select name="seldatacode" lay-ignore style="width:220px;">
+						<option value="">请选择字典项</option>
+						<#if sysdicList??>
+						<#list sysdicList as sysDic>
+						<option value="${sysDic.code!''}" <#if tp.seldatacode?? && tp.seldatacode == sysDic.code>selected="selected"</#if>>${sysDic.name}</option>
+						</#list>
+						</#if>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">启用流程变量：</label>
+				<div class="layui-input-inline" style="line-height: 35px;width:80px;">
+					<input type="checkbox" name="systemfield" lay-skin="switch" value="1" <#if tp.systemfield == true>checked="checked"</#if> lay-text="开启|关闭">
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-form-button">
+			<div class="layui-button-block">
+				<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+  form.render(); //更新全部
+  form.on("switch(dic)" , function(data){
+  	if(data.elem.checked){
+	  	$("#sysdicsel").show();
+  	}else{
+  		$("#sysdicsel").hide();
+  	}
+  });
+});
+</script>

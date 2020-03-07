@@ -1,0 +1,92 @@
+<div class="uk-layui-form" style="padding-top:2px;overflow:hidden;">
+	<form class="layui-form">
+		<div class="playway-container" style="padding-left:5px;">
+			<div class="layui-row">
+				<div class="layui-col-md3" style="height:430px;">
+					<div class="layui-form-item playway-left">
+						<div class="playway-current"><img src="/images/playway/${(playway.roomtitle!'')?url}.png"></div>
+						<div class="playway-desc-pic"><img src="/images/playway/icon_description.png"></div>
+						<div class="playway-desc">${playway.memo!''}</div>
+					</div>
+				</div>
+				<div class="layui-col-md9" style="height:430px;">
+					<div class="layui-form-item playway-right">
+						<div id="extpro_group">
+							<#if groupList?? && groupList?size gt 0>
+							<#list groupList as group>
+							<div class="playway-options">
+								<div class="layui-form-item <#if group.style?? && group.style == 'four'>playway-four-col</#if>">
+									<label class="layui-form-label" style="width:100px;">
+										<a href="/apps/platform/playway/editgroup.html?id=${group.id!''}&playwayid=${playway.id!''}&game=${game.id!''}" data-toggle="load" data-target="#mainajaxwin">
+											<i class="layui-icon">&#xe642;</i>
+											${group.name!''}
+											：
+										</a>
+									</label>
+									<div class="layui-input-block" style="margin-left:100px;">
+										<#if groupItemList??>
+										<#list groupItemList as groupItem>
+										<#if groupItem.groupid?? && groupItem.groupid == group.id>
+										<input data-group="${group.id!''}" data-id="${groupItem.id!''}" type="${group.type!'checkbox'}" name="${group.code!''}" lay-filter="item" <#if groupItem.defaultvalue?? && groupItem.defaultvalue == true>checked="checked"</#if> value="${groupItem.value!''}"  lay-skin="primary"  title="${groupItem.name!''}">
+										</#if>
+										</#list>
+										</#if>
+										<div class="playway-group-add" style="display:inline-block;vertical-align: middle;margin-top:10px;">
+											<span>
+												<a href="/apps/platform/playway/additem.html?groupid=${group.id!''}&playwayid=${playway.id!''}&game=${game.id!''}" data-toggle="load" data-target="#mainajaxwin">
+													<i class="layui-icon">&#xe608;</i>
+													新建子项
+												</a>
+											</span>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							</#list>
+							<#else>
+							<div class="playway-options" style="text-align:center;padding-top:20px;">
+								<div class="layui-form-item">
+									还没有分组内容，您可以点击
+									<a href="/apps/platform/playway/addgroup.html?playwayid=${playway.id!''}&game=${game.id!''}" data-toggle="load" data-target="#mainajaxwin">
+										<i class="layui-icon">&#xe608;</i>
+										创建一个新的分组
+									</a>
+								</div>
+							</div>
+							</#if>
+						</div>
+						<div class="playway-options-bottom">
+							<div class="layui-form-item">
+								<a href="/apps/platform/playway/addgroup.html?playwayid=${playway.id!''}&game=${game.id!''}" data-toggle="load" data-target="#mainajaxwin">
+									<i class="layui-icon">&#xe608;</i>
+									新建分组
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="layui-form-button">
+			<div class="layui-button-block">
+				<button class="layui-btn" onclick="top.layer.closeAll();return false ;">保存</button>
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+        form.render(); //更新全部
+        form.on('radio(item)', function(data){
+            loadURL("/apps/platform/playway/edititem.html?playwayid=${playway.id!''}&game=${game.id!''}&groupid="+$(data.elem).data("group")+"&id="+$(data.elem).data("id") , "#mainajaxwin");
+        });
+        form.on('checkbox(item)', function(data){
+            loadURL("/apps/platform/playway/edititem.html?playwayid=${playway.id!''}&game=${game.id!''}&groupid="+$(data.elem).data("group")+"&id="+$(data.elem).data("id") , "#mainajaxwin");
+        });
+    });
+</script>

@@ -1,0 +1,130 @@
+<div class="layui-layout layui-layout-content">
+	<div class="layui-side layui-beimi-left">
+		<div class="layui-side-scroll">
+		<#include "/apps/business/platform/include/left.html"/></div>
+	</div>
+	<div class="layui-body">
+		<div class="layui-side-scroll">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="site-h1" style="background-color:#FFFFFF;">
+						“${game.name!''}” 玩法列表<#if playwayList??>（${playwayList?size}）</#if>
+					</h1>
+					<div class="row" style="padding:5px;">
+						<div class="col-lg-12">
+							<#if playwayList?? && playwayList?size gt 0>
+							<div class="layui-collapse">
+								<#if gameModelList??>
+								<#list gameModelList as gameModel>
+								<div class="layui-colla-item" style="position: relative;">
+									<h2 class="layui-colla-title">
+										${gameModel.name!''}
+									</h2>
+									<div style="float:right;float: right;position: absolute;right: 5px;top: 3px;">
+										<button class="layui-btn layui-btn-sm green"
+											href="/apps/platform/playway/add.html?id=${game.id!''}&typeid=${gameModel.id!''}"
+											data-toggle="ajax" data-width="950" data-height="550"
+											data-title="创建新玩法">创建新玩法</button>
+									</div>
+									<div class="layui-colla-content layui-show" style="padding:0px;">
+										<table class="layui-table" lay-skin="nob">
+											<thead>
+												<tr>
+													<th>玩法名称</th>
+													<th>玩家数量</th>
+													<th>底分</th>
+													<th>金币要求</th>
+													<th>排序位置</th>
+													<#if game.code == "dizhu">
+													<th>洗牌</th>
+													<#elseif  game.code == "majiang">
+													<th>胡牌方式</th>
+													</#if>
+													<th>有风牌</th>
+													<th>发牌数量</th>
+													<th>开启限免</th>
+													<th style="white-space:nowrap;width:1%;" nowrap="nowrap">操作</th>
+												</tr>
+											</thead>
+											<tbody>
+												<#list playwayList as playway>
+												<#if playway.typeid?? && playway.typeid == gameModel.id>
+												<tr>
+													<td>
+														${playway.name!''}
+													</td>
+													<td>${playway.players!''}</td>
+													<td>${playway.score!''}</td>
+													<td>${playway.mincoins}~${playway.maxcoins}</td>
+													<td>${playway.sortindex!''}</td>
+													<td>
+														<#if playway.code == "dizhu">
+															<#if playway.shuffle?? && playway.shuffle> 
+															<i class="layui-icon" style="color:#19a55d;">&#xe618;</i>
+															</#if>
+														<#elseif  playway.code == "majiang">
+															<#if playway.wintype?? && playway.wintype == "tui"> 
+																推倒胡
+															<#elseif playway.wintype?? && playway.wintype == "end"> 
+																血战到底
+															<#elseif playway.wintype?? && playway.wintype == "river"> 
+																血流到底
+															</#if>
+														</#if>
+													</td>
+													<td>
+														<#if playway.wind?? && playway.wind> 
+														<i class="layui-icon" style="color:#19a55d;">&#xe618;</i>
+														</#if>
+													</td>
+													<td>${playway.cardsnum!''}</td>
+													<td>
+														<#if playway.free?? && playway.free == true>
+															<i class="layui-icon" style="color:#19a55d;">&#xe618;</i>
+														</#if>
+													</td>
+													<td style="white-space:nowrap;width:1%;" nowrap="nowrap"><a
+														href="/apps/platform/playway/edit.html?id=${playway.id!''}&game=${game.id!''}"
+														data-toggle="ajax" data-width="950" data-height="550"
+														data-title="编辑游戏玩法配置"> <i class="layui-icon">&#xe642;</i>
+															编辑
+													</a>
+														<#if playway.extpro?? && playway.extpro == true>
+														<a href="/apps/platform/playway/extpro.html?id=${playway.id!''}&game=${game.id!''}"
+														   data-toggle="ajax" data-width="950" data-height="550"
+														   data-title="设置游戏自定义玩法" style="margin-left:10px;" title="房卡游戏自定义规则设置">
+															<i class="layui-icon">&#xe631;</i>
+															设置
+														</a>
+														</#if>
+														<#if !(playway.playwaytype?? && playway.playwaytype == "0") &&
+														playway.datastatus != true > <a
+														href="/apps/platform/playway/delete.html?id=${playway.id!''}&game=${game.id!''}"
+														style="margin-left:10px;" data-toggle="tip"
+														data-title="请确认是否删除玩法？"> <i class="layui-icon"
+															style="color:red;">&#x1006;</i> 删除
+													</a> </#if></td>
+												</tr>
+												</#if>
+												</#list>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								</#list>
+								</#if>
+							</div>
+							</#if>
+						</div> 	   
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	layui.use('element', function() {
+		var element = layui.element;
+	});
+</script>

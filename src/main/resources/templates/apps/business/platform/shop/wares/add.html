@@ -1,0 +1,162 @@
+<#include "/public/macro.html">
+<div class="uk-layui-form">
+	<form class="layui-form" action="/apps/shop/save.html" method="post" enctype="multipart/form-data">
+		<div class="layui-collapse">
+			<div class="layui-colla-item">
+				<h2 class="layui-colla-title">基本信息</h2>
+				<div class="layui-colla-content layui-show">
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" id="cusname">名称：</label>
+							<div class="layui-input-inline" style="width:190px;">
+								<input type="text" name="name" required  lay-verify="required" autocomplete="off"
+										class="layui-input">
+								<font color="red" style="position: absolute;right:-100px;top:0px;">*（必填项）</font>
+							</div>
+						</div>
+							
+						<div class="layui-inline uckefu-inline">
+							<label class="layui-form-label" style="line-height: 35px;">类型：</label>
+							<div class="layui-input-inline" style="width:218px;margin-right:0px;padding-top:9px;">
+								<@select "com.dic.shop.warestype" "warestype" type!'' "lay-ignore required lay-verify='required' "/>
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">支付方式：</label>
+							<div class="layui-input-inline" style="width:190px;">
+								<@select "com.dic.shop.payment" "payment" payment!'' "lay-ignore required lay-verify='required' "/>
+							</div>
+						</div>
+						<div class="layui-inline uckefu-inline">
+							<label class="layui-form-label" >推荐类型：</label>
+							<div class="layui-input-inline" style="width:218px;">
+								<@select "com.dic.shop.recomtyped" "recomtype" recomtype!'' "lay-ignore required lay-verify='required' "/>
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">图片：</label>
+							<div class="layui-input-inline">
+								<select name="imageurl">
+									<#list imagesList as images>
+									<option value="${images.code!''}">${images.name!''}</option>
+									</#list>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline uckefu-inline">
+							<label class="layui-form-label">兑换数量：</label>
+							<div class="layui-input-inline">
+								<input type="text" name="quantity" required  lay-verify="required"  lay-verify="number" autocomplete="off" class="layui-input" value="1">
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">排序序号：</label>
+							<div class="layui-input-inline">
+								<select name="inx">
+									<#list 1..100 as inx>
+									<option value="${inx}">${inx}</option>
+									</#list>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline uckefu-inline">
+							<label class="layui-form-label">价格：</label>
+							<div class="layui-input-inline">
+								<input type="text" name="price" required  lay-verify="required"  lay-verify="number" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">状态：</label>
+							<div class="layui-input-inline" style="width:190px;">
+								<input type="radio" name="status" value="on" title="上架" checked> 
+								<input type="radio" name="status" value="off" title="下架" >
+							</div>
+						</div>
+						<div class="layui-inline uckefu-inline">
+							<label class="layui-form-label" >启用SKU：</label>
+							<div class="layui-input-inline" style="width:218px;">
+								<input type="radio" name="enablesku" value="0" title="禁用"> 
+								<input type="radio" name="enablesku" value="1" title="启用" checked>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="layui-colla-item">
+				<h2 class="layui-colla-title">扩展信息</h2>
+				<div class="layui-colla-content layui-show">
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">开始时间：</label>
+							<div class="layui-input-inline">
+								<input type="text" name="starttime" id="starttime" readOnly="readOnly" lay-verify="datetime" autocomplete="off"
+										class="layui-input">
+								<i class="layui-icon" style="position: absolute;right: 3px;top: 6px;font-size: 25px;">&#xe637;</i>
+							</div>
+						</div>
+						<div class="layui-inline uckefu-inline">
+							<label class="layui-form-label">结束时间：</label>
+							<div class="layui-input-inline">
+								<input type="text" name="endtime" id="endtime" readOnly="readOnly" lay-verify="datetime" autocomplete="off"
+										class="layui-input">
+								<i class="layui-icon" style="position: absolute;right: 3px;top: 6px;font-size: 25px;">&#xe637;</i>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">说明：</label>
+							<div class="layui-input-inline" style="width: 664px;">
+								<textarea name="description" placeholder="请输入内容" class="layui-textarea" style="resize:none;min-height:70px;"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-form-button">
+			<div class="layui-button-block">
+				<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+	layui.use('form', function(){
+	  var form = layui.form;
+	  form.render(); //更新全部
+	});
+	layui.use('element', function(){
+		var element = layui.element;
+	});
+	layui.use('laydate', function() {
+		var laydate = layui.laydate;
+		
+		laydate.render({
+			elem: '#starttime',
+			theme: 'default',
+			type:"datetime" ,
+			show: false //直接显示
+		});
+		
+		laydate.render({
+			elem: '#endtime',
+			theme: 'default',
+			type:"datetime" ,
+			show: false //直接显示
+		});
+	});
+</script>

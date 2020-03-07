@@ -1,0 +1,70 @@
+<div class="uk-layui-form">
+	<form class="layui-form" data-toggle="ajax-form" data-target="#mainajaxwin" method="post" data-close="false"
+		action="/apps/platform/playway/savegroup.html">
+		<input type="hidden" name="game" value="${game.id!''}">
+		<input type="hidden" name="playwayid" value="${playway.id!''}">
+		<div class="layui-row" style="width: 400px;margin: 0 auto;padding-top: 20px;">
+			<div class="layui-col-md12">
+				<div class="layui-form-item">
+					<label class="layui-form-label">分组名称：</label>
+					<div class="layui-input-block">
+						<input type="text" name="name" required lay-verify="required"
+							placeholder="分组名称" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">选项类型：</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="radio" title="单选">
+                        <input type="radio" name="type" value="checkbox" title="多选" checked>
+                    </div>
+                </div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">分组样式：</label>
+					<div class="layui-input-block">
+						<input type="radio" name="style" value="three" title="三列">
+						<input type="radio" name="style" value="four" title="四列" checked>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">排序位置：</label>
+					<div class="layui-input-block">
+						<select name="sortindex" lay-verify="required">
+							<#list 0..20 as inx>
+							<option value="${inx}">${inx+1}</option>
+							</#list>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">分组代码：</label>
+					<div class="layui-input-block">
+						<input type="text" name="code" required lay-verify="required|code"
+							   placeholder="分组代码" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+
+        </div>
+		<div class="layui-form-button">
+			<div class="layui-button-block">
+				<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+  form.render(); //更新全部
+  form.verify({
+	  code:[
+           /^[\S\s]{0,30}$/
+           ,'玩法简介长度不能不能超过30个字符'
+      ]
+  });
+});
+</script>

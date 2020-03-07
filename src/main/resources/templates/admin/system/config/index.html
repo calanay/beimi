@@ -1,0 +1,238 @@
+<form method="post" key="set-mine" enctype="multipart/form-data" action="/admin/config/save.html" class="layui-form">
+	<#if systemConfig??><input type="hidden" name="id" value="${systemConfig.id!''}"></#if>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ukefu-customer-div setting-wrapper">
+				<div class="box default-box">
+					<div class="box-header">
+						<h3 class="box-title">系统设置</h3>
+					</div>
+					<div class="box-body ukefu-im-theme">
+						<div class="row">
+							<div class="col-lg-8">
+								<div class="ukefu-webim-prop">
+									<div class="ukefu-webim-tl" style="clear:both;">1、系统颜色风格选择</div>
+									<div class="box-item">
+										<div class="row">
+											<div class="col-lg-8">
+												<p>贝密游戏运营管理系统界面颜色风格</p>
+												<p style="color:#888888;font-size:13px;margin-top:10px;">默认的配色是绿色，选择颜色可以在右侧预览风格，点击保存即可生效</p>
+											</div>
+											<div class="col-lg-4">
+												<select name="theme" lay-filter="sysconfig">
+													<option value="01" <#if systemConfig?? && systemConfig.theme?? && systemConfig.theme == '01'>selected="selected"</#if>>绿色</option>
+													<option value="02" <#if systemConfig?? && systemConfig.theme?? && systemConfig.theme == '02'>selected="selected"</#if>>黑色</option>
+													<option value="03" <#if systemConfig?? && systemConfig.theme?? && systemConfig.theme == '03'>selected="selected"</#if>>蓝色</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="ukefu-webim-prop">
+									<div class="ukefu-webim-tl" style="clear:both;">2、重启或停止对话服务</div>
+									<div class="box-item">
+										<div class="row">
+											<div class="col-lg-8">
+												<p>Netty SocketIO服务，服务端口：${webimport} , 状态：<#if imServerStatus?? && imServerStatus == true><small class="ukefu-label theme4">服务中</small><#else><small class="ukefu-label theme4" style="background-color:#FF5722;">已停止</small></#if></p>
+												<p style="color:#888888;font-size:13px;margin-top:10px;">建议通过界面停止或启动对话服务，避免出现端口被占用的问题</p>
+											</div>
+											<div class="col-lg-4">
+												<#if imServerStatus?? && imServerStatus == true>
+												<a href="/admin/config/stopimserver.html" data-toggle="tip" <#if secret?? && secret.enable == true>data-confirm="请输入二次安全验证密码"</#if> title="停止对话服务后不能从Web界面再次启动，请确认是否退出？" class="layui-btn layui-btn-sm layui-btn-danger">停止对话服务</a>
+												</#if>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="ukefu-webim-prop">
+									<div class="ukefu-webim-tl" style="clear:both;">3、停止优客服系统</div>
+									<div class="box-item">
+										<div class="row">
+											<div class="col-lg-8">
+												<p>安全退出系统服务，停止服务调用JVM的退出指令</p>
+												<p style="color:#888888;font-size:13px;margin-top:10px;">适用于Tomcat、Jetty等系统，WebLogic/WebSphere等中间件严禁使用</p>
+											</div>
+											<div class="col-lg-4">
+												<a href="/admin/config/stop.html" data-toggle="tip" <#if secret?? && secret.enable == true>data-confirm="请输入二次安全验证密码"</#if> title="停止服务将会调用JVM退出指令，请确认是否退出？" class="layui-btn layui-btn-sm layui-btn-danger">停止服务</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="ukefu-webim-prop">
+									<div class="ukefu-webim-tl" style="clear:both;">4、修改微信接收消息的日志级别</div>
+									<div class="box-item">
+										<div class="row">
+											<div class="col-lg-8">
+												<p>动态修改微信接收消息的日志级别</p>
+												<p style="color:#888888;font-size:13px;margin-top:10px;">默认是INFO，调整到DEBUG能够方便微信消息排查错误</p>
+											</div>
+											<div class="col-lg-4">
+												<select name="loglevel" lay-filter="sysconfig">
+													<option value="info" <#if systemConfig?? && systemConfig.loglevel?? && systemConfig.loglevel == 'debug'>selected="selected"</#if>>INFO</option>
+													<option value="debug" <#if systemConfig?? && systemConfig.loglevel?? && systemConfig.loglevel == 'debug'>selected="selected"</#if>>DEBUG</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="ukefu-webim-prop">
+									<div class="ukefu-webim-tl" style="clear:both;">5、启用服务SSL安全访问</div>
+									<div class="box-item">
+										<div class="row">
+											<div class="col-lg-8">
+												<p>启用SSL安全协议</p>
+												<p style="color:#888888;font-size:13px;margin-top:10px;">启用后需要上传SSL证书和设置SSL证书密码</p>
+											</div>
+											<div class="col-lg-4" style="text-align:right;">
+												<input type="checkbox" title="启用" name="enablessl" lay-filter="enablessl" value="1" <#if systemConfig.enablessl>checked="checked"</#if>>
+											</div>
+										</div>
+										<div class="row httpsconfig" style="margin-top:20px;<#if systemConfig.enablessl == false>display:none;</#if>">
+											<div class="col-lg-8">
+												<p>
+													JKS证书文件
+													<span style="color:red;font-weight:bold;">${systemConfig.jksfile!''}</span>
+												</p>
+												<p style="color:#888888;font-size:13px;margin-top:10px;">受信的SSL证书文件，请上传.JKS类型的证书文件
+													
+												</p>
+											</div>
+											<div class="col-lg-4" style="text-align:right;">
+												<span id="jkstip"></span>
+												<div class="layui-box layui-upload-button">
+													<input type="file" name="keyfile" accept=".jks" lay-ext="jks"  class="layui-upload-file" onchange="$('#jkstip').html($(this).val());">
+													<span class="layui-upload-icon"><i class="layui-icon"></i>上传JKS文件</span>
+												</div>
+											</div>
+										</div>
+										<div class="row httpsconfig" style="margin-top:20px;<#if systemConfig.enablessl == false>display:none;</#if>">
+											<div class="col-lg-8">
+												<p>JKS证书密码</p>
+												<p style="color:#888888;font-size:13px;margin-top:10px;">.JKS文件的证书密码，<b style="color:red;font-weight:bold;">如无改变，不用填写</b></p>
+											</div>
+											<div class="col-lg-4" style="text-align:right;">
+												<input type="password" name="jkspassword" value="" autocomplete="off" class="layui-input">
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="ukefu-webim-prop">
+									<div class="ukefu-webim-tl" style="clear:both;">6、启用涉及重要操作的二次验证密码</div>
+									<div class="box-item">
+										<div class="row">
+											<div class="col-lg-8">
+												<p>启用重要操作的二次密码验证</p>
+												<p style="color:#888888;font-size:13px;margin-top:10px;">启用后重启服务器、关闭对话服务器和修改证书等操作将会进行二次安全验证</p>
+											</div>
+											<div class="col-lg-4" style="text-align:right;">
+												<input type="checkbox" title="启用" name="enable" lay-filter="enable" value="1" <#if secret?? && secret.enable>checked="checked"</#if>>
+											</div>
+										</div>
+										<#if secret?? && secret.enable == true>
+										<div class="row elablesec" style="margin-top:20px;<#if secret?? && secret.enable == true><#else>display:none;</#if>">
+											<div class="col-lg-8">
+												<p>已设定的旧的密码</p>
+												<p style="color:#888888;font-size:13px;margin-top:10px;">请填写已经保存的旧的密码，提交后会验证旧密码是否正确</p>
+											</div>
+											<div class="col-lg-4" style="text-align:right;">
+												<input type="password" name="oldpass" id="oldpass" value="" autocomplete="off" class="layui-input">
+											</div>
+										</div>
+										</#if>
+										<div class="row elablesec" style="margin-top:20px;<#if secret?? && secret.enable == true><#else>display:none;</#if>">
+											<div class="col-lg-8">
+												<p>安全操作的二次验证新密码</p>
+												<p style="color:#888888;font-size:13px;margin-top:10px;">首次设置密码无需验证旧密码</p>
+											</div>
+											<div class="col-lg-4" style="text-align:right;">
+												<input type="password" name="password" id="password" value="" autocomplete="off" class="layui-input">
+											</div>
+										</div>
+										<div class="row elablesec" style="margin-top:20px;<#if secret?? && secret.enable == true><#else>display:none;</#if>">
+											<div class="col-lg-8">
+												<p>再次确认安全操作的二次验证新密码</p>
+												<p style="color:#888888;font-size:13px;margin-top:10px;"><b style="color:red;font-weight:bold;">请保证新密码两次输入相同	</b></p>
+											</div>
+											<div class="col-lg-4" style="text-align:right;">
+												<input type="password" name="repassword" id="repassword" value="" lay-verify="pass" autocomplete="off" class="layui-input">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="ukefu-webim-prop">
+									<div class="ukefu-webim-tl" style="clear:both;">7、百度地图的Key代码（AK）</div>
+									<div class="box-item">
+										<div class="row">
+											<div class="col-lg-8">
+												<p>用于调用百度地图的API</p>
+												<p style="color:#888888;font-size:13px;margin-top:10px;">需要使用的API包括坐标转换和Javascript接口</p>
+											</div>
+											<div class="col-lg-4">
+												<input type="text" name="mapkey" value="${systemConfig.mapkey!''}" autocomplete="off" class="layui-input">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-3"></div>
+		<div class="col-lg-9">
+			<div class="layui-form-item">
+			  <div class="layui-input-block">
+				<button class="layui-btn" lay-submit="" lay-filter="formDemo">保存</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			  </div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<script language="javascript"> 	
+	<#if execute?? && execute == "false">
+	top.layer.alert('二次 验证密码设置失败，输入的密码错误，请重新操作！', {icon: 2});
+	</#if>
+	<#if msg??>
+		<#if msg == '1'>
+			top.layer.alert('二次验证密码设置成功', {icon: 1});
+		<#elseif msg == '2'>
+			top.layer.alert('二次验证密码设置失败，请确认两次输入的密码一致', {icon: 2});
+		<#elseif msg == '3'>
+			top.layer.alert('二次验证密码设置失败，旧的密码验证失败，请输入正确的密码', {icon: 2});
+		</#if>
+	</#if>
+	layui.use('form', function(){
+		var form = layui.form;
+		form.render('select'); //刷新select选择框渲染
+		form.on("checkbox(enablessl)" , function(data){
+			if(data.elem.checked == true){
+				$('.httpsconfig').show();
+			}else{
+				$('.httpsconfig').hide();
+			}
+		})
+		form.on("checkbox(enable)" , function(data){
+			if(data.elem.checked == true){
+				$('.elablesec').show();
+			}else{
+				$('.elablesec').hide();
+			}
+		})
+		form.verify({
+			pass:function(value){
+				if(value != $('#password').val()){
+					return "请确认两次输入密码相同" ;
+				}
+			}
+		});    
+	});
+</script>

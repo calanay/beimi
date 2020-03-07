@@ -1,0 +1,99 @@
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="site-h1" style="background-color:#FFFFFF;">
+			用户列表<#if userList??>（${userList.totalElements!''}）</#if>
+			<span style="float:right;">
+				<button class="layui-btn layui-btn-sm green" href="/admin/user/add.html" data-toggle="ajax" data-width="750" data-height="450" data-title="创建新用户">
+					创建新用户
+				</button>
+			</span>
+		</h1>
+		<div class="row" style="padding:5px;">
+			<div class="col-lg-12">
+				<table class="layui-table" lay-skin="line">
+				  <colgroup>
+						<col width="20%">
+						<col width="15%">
+						<col width="15%">
+						<col width="15%">
+						<col width="10%">
+						<col width="1%">
+						<col>
+				  </colgroup>
+				  <thead>
+					<tr>
+					  <th>用户</th>
+					  <th>姓名</th>
+					  <th>电子邮件</th>
+					  <th>手机</th>
+					  <th>管理员</th>
+					  <th style="white-space:nowrap;" nowrap="nowrap">操作</th>
+					</tr> 
+				  </thead>
+				  <tbody>
+					<#if userList?? && userList.content??>
+					<#list userList.content as user>
+					<tr>
+					  <td>
+							<a href="">
+								<i class="layui-icon headimg">&#xe612;</i>
+								<div style="margin-left:50px;margin-top:0px;">
+									${user.username!''}
+									<#if user.datastatus == true><i style="color:red;">（已删除）</i></#if>
+								</div>
+								<div title="注册时间" style="margin-left:50px;margin-top:0px;color:#cccccc;font-size:13px;">
+									${user.createtime!''}
+								</div>
+								
+							</a>
+							
+					  </td>
+					  <td>${user.uname!''}</td>
+					  <td>${user.email!''}</td>
+					  <td>${user.mobile!''}</td>
+					  <td>
+					  	<#if user.usertype?? && user.usertype =="0">
+					  		<i class="layui-icon" style="color:#19a55d;">&#xe618;</i>
+					  	</#if>
+					  </td>
+					  <td style="white-space:nowrap;" nowrap="nowrap">
+					  		<a href="/admin/user/edit.html?id=${user.id!''}" data-toggle="ajax" data-width="750" data-height="450" data-title="编辑用户信息">
+					  			<i class="layui-icon">&#xe642;</i>
+					  			编辑
+					  		</a>
+					  		<#if !(user.usertype?? && user.usertype == "0") && user.datastatus != true >
+					  		<a href="/admin/user/delete.html?id=${user.id!''}" style="margin-left:10px;" data-toggle="tip" data-title="请确认是否删除记录？">
+					  			<i class="layui-icon" style="color:red;">&#x1006;</i>
+					  			删除
+					  		</a>
+					  		</#if>
+					  </td>
+					</tr>
+					</#list>
+					</#if>
+				  </tbody>
+				</table>
+			</div> 	   
+		</div>
+		<div class="row" style="padding:5px;">
+			<div class="col-lg-12" id="page" style="text-align:center;"></div>
+		</div>
+	</div>	
+</div>
+<script>
+	layui.use('laypage', function(){
+		  var laypage = layui.laypage;
+		  laypage.render({
+				elem: 'page'
+				,count: <#if userList??>${userList.totalElements}<#else>0</#if> //总记录
+				,limit: <#if userList??>${userList.size}<#else>0</#if> //总记录
+				,curr:<#if userList??>${userList.number+1}<#else>0</#if>
+				,groups: 5 //连续显示分页数
+				,jump:function(data , first){
+					if(!first){
+						location.href = "/admin/user/index.html?p="+data.curr ;
+					}
+				}
+		   });
+		});
+</script>

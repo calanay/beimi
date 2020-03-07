@@ -1,0 +1,28 @@
+{
+  "appKey": "",
+  "appSecret": "",
+  "encryptJs": true,
+  "excludeScenes": [],
+  "includeAnySDK": false,
+  "includeSDKBox": false,
+  "inlineSpriteFrames": true,
+  "inlineSpriteFrames_native": true,
+  "jailbreakPlatform": false,
+  "md5Cache": false,
+  "mergeStartScene": false,
+  "oauthLoginServer": "",
+  "optimizeHotUpdate": false,
+  "orientation": {
+    "landscapeLeft": true,
+    "landscapeRight": true,
+    "portrait": false,
+    "upsideDown": false
+  },
+  "packageName": "com.beimi",
+  "privateKey": "",
+  "renderMode": "0",
+  "startScene": "1db3d56a-e495-44b9-a343-d13e8a09ce72",
+  "title": "beimi",
+  "webOrientation": "landscape",
+  "xxteaKey": "4b253bbe-9923-49"
+}

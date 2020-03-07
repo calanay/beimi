@@ -1,0 +1,235 @@
+<div class="uk-layui-form">
+	<form class="layui-form"
+		action="/apps/platform/playway/save.html">
+		<input type="hidden" name="game" value="${game.id!''}">
+		<input type="hidden" name="typeid" value="${typeid!''}">
+		<div class="layui-row">
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label">玩法名称：</label>
+					<div class="layui-input-block">
+						<input type="text" name="name" required lay-verify="required"
+							placeholder="玩法名称" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label">场景代码：</label>
+					<div class="layui-input-block">
+						<select name="code" lay-verify="required" lay-filter="gametype">
+							<#if sceneList??>
+							<#list sceneList as scene>
+							<option value="${scene.code!''}">${scene.name!''}</option>
+							</#list>
+							</#if>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-md4" id="wintype" style="display:none;">
+				<div class="layui-form-item">
+					<label class="layui-form-label">胡牌方式：</label>
+					<div class="layui-input-block">
+						<select name="wintype" lay-verify="required">
+							<option value="tui">推倒胡</option>
+							<option value="end">血战到底</option>
+							<option value="river">血流成河</option>
+						</select>
+					</div>
+				</div>
+			</div>
+        </div>
+        <div class="layui-row">
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label">玩法级别：</label>
+					<div class="layui-input-block">
+						<select name="typelevel" lay-verify="required">
+							<option value="1">初级场</option>
+							<option value="2">高级场</option>
+							<option value="3">房卡</option>
+							<option value="4">比赛</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label">图标颜色：</label>
+					<div class="layui-input-block">
+						<select name="typecolor" lay-verify="required">
+							<option value="1">配色一</option>
+							<option value="2">配色二</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label">排序位置：</label>
+					<div class="layui-input-block">
+						<select name="sortindex" lay-verify="required">
+							<#list 1..20 as inx>
+							<option value="${inx}">${inx}</option>
+							</#list>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-row">
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label">玩家数量：</label>
+					<div class="layui-input-block">
+						<select name="players" lay-verify="required">
+							<#list 2..4 as num>
+							<option value="${num}">${num}</option>
+							</#list>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label">发牌数量：</label>
+					<div class="layui-input-block">
+						<select name="cardsnum" lay-verify="required">
+							<#list 1..64 as cardsnum>
+							<option value="${cardsnum}">${cardsnum}</option>
+							</#list>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label">底分：</label>
+					<div class="layui-input-block">
+						<input type="text" name="score" required lay-verify="required|number"
+							placeholder="底分" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+        </div>
+        <div class="layui-row">
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">金币要求：</label>
+						<div class="layui-input-inline" style="width: 80px;">
+							<input type="text" name="mincoins" required
+								lay-verify="required|number" placeholder="最小金币"
+								autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-form-mid">-</div>
+						<div class="layui-input-inline" style="width: 80px;margin-right:0px;">
+							<input type="text" name="maxcoins" required
+								lay-verify="required|number" placeholder="最大金币"
+								autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="layui-col-md4">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">房卡限免：</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="free" title="开启" value="1">
+                        <input type="radio" name="free" title="关闭" value="0" checked>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md4">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">显示标题：</label>
+                    <div class="layui-input-block">
+                        <select name="roomtitle" lay-verify="required">
+                            <#if dicList??>
+                            <#list dicList as roomtitle>
+                                <option value="${roomtitle.name!''}">${roomtitle.name!''}</option>
+                            </#list>
+                            </#if>
+                        </select>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<div class="layui-row">
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label">扩展属性：</label>
+					<div class="layui-input-block">
+						<input type="radio" name="extpro" title="开启" value="1">
+						<input type="radio" name="extpro" title="关闭" value="0" checked>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-md8">
+				<div class="layui-form-item">
+					<label class="layui-form-label">游戏选项：</label>
+					<div class="layui-input-block">
+						<input type="checkbox" name="changecard" title="换三张" value="1" >
+						<input type="checkbox" name="wind" title="有风牌" value="1" >
+						<input type="checkbox" name="shuffle" title="洗牌" value="1">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-row" id="cardtype">
+			<div class="layui-col-md12">
+				<div class="layui-form-item">
+					<label class="layui-form-label">禁用牌型：</label>
+					<div class="layui-input-block">
+						<#if cardTypeList??>
+						<#list cardTypeList as cardType>
+						<input type="checkbox" name="cardsrules" title="${cardType.name!''}" lay-skin="primary"  value="${cardType.code!''}">
+						</#list>
+						</#if>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-row">
+			<div class="layui-col-md12">
+				<div class="layui-form-item">
+					<label class="layui-form-label">简介：</label>
+					<div class="layui-input-block">
+						<textarea name="memo" placeholder="玩法简介，不超过30个字" id="memo" lay-verify="memo" maxlength="30" class="layui-textarea"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-form-button">
+			<div class="layui-button-block">
+				<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+  form.render(); //更新全部
+  form.verify({
+	  memo:[
+           /^[\S\s]{0,30}$/
+           ,'玩法简介长度不能不能超过30个字符'
+      ]
+  });
+  form.on("select(gametype)" , function(data){
+      if(data.value == "dizhu"){
+          $('#gametype').show();
+          $('#wintype').hide();
+	  }else{
+	  	  $('#wintype').show();
+          $('#gametype').hide();
+	  }
+  });
+});
+</script>
