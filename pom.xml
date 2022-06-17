@@ -19,7 +19,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<drools.version>7.1.0.Final</drools.version>
+		<drools.version>7.60.0.Final</drools.version>
 	</properties>
 
 	<dependencies>
